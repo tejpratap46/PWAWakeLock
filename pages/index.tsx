@@ -35,10 +35,10 @@ const Index = () => {
 			<p>Tips:</p>
 			<ul>
 				<li>
-					Do not move away from this tab or monimize Browser
+					▲ Do not move away from this tab or monimize Browser.
 				</li>
 				<li>
-					Use latest version of chrome
+					▲ Use latest version of chrome.
 				</li>
 			</ul>
 		</Section>
