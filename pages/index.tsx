@@ -31,14 +31,14 @@ const Index = () => {
 
 	return <Page title={released ? 'Not Aquired' : 'Aquired'}>
 		<Section>
-			<div className="flex items-center justify-center h-full">
+			<div className="flex items-center justify-center" style={{height: '70vh'}}>
 				<h1>
 					<span className='text-9xl'>{currentHr}</span>
-					<span className='text-3xl'>h&nbsp;</span>
+					<span className='text-5xl'>h&nbsp;&nbsp;&nbsp;</span>
 					<span className='text-9xl'>{currentMinute}</span>
-					<span className='text-3xl'>m&nbsp;</span>
+					<span className='text-5xl'>m&nbsp;&nbsp;&nbsp;</span>
 					<span className='text-9xl'>{currentSecond}</span>
-					<span className='text-3xl'>s</span>
+					<span className='text-5xl'>s</span>
 				</h1>
 			</div>
 		</Section>
