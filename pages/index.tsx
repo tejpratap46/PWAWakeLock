@@ -3,6 +3,7 @@ import Section from '@/components/section'
 import { useWakeLock } from 'react-screen-wake-lock'
 import { useState } from 'react'
 import dayjs from 'dayjs'
+import numberToWords from 'number-to-words'
 
 const Index = () => {
 	const hrFormat = 'hh';
@@ -32,14 +33,17 @@ const Index = () => {
 	return <Page title={released ? 'Not Aquired' : 'Aquired'}>
 		<Section>
 			<div className="flex items-center justify-center" style={{height: '70vh'}}>
-				<h1>
+				{/* <h1>
 					<span className='text-9xl'>{currentHr}</span>
 					<span className='text-5xl'>h&nbsp;&nbsp;&nbsp;</span>
 					<span className='text-9xl'>{currentMinute}</span>
 					<span className='text-5xl'>m&nbsp;&nbsp;&nbsp;</span>
 					<span className='text-9xl'>{currentSecond}</span>
 					<span className='text-5xl'>s</span>
-				</h1>
+				</h1> */}
+				<h1 className="text-9xl">{numberToWords.toWords(currentHr)}</h1>
+				<h1 className="text-5xl">{numberToWords.toWords(currentMinute)}</h1>
+				<h1 className="text-4xl">{numberToWords.toWords(currentSecond)}</h1>
 			</div>
 		</Section>
 	</Page>
