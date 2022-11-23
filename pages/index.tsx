@@ -43,9 +43,9 @@ const Index = () => {
 					<span className='text-9xl'>{currentSecond}</span>
 					<span className='text-5xl'>s</span>
 				</h1> */}
-				<h1 className="text-9xl">{toWords.convert(currentHr)}</h1>
-				<h1 className="text-5xl">{toWords.convert(currentMinute)}</h1>
-				<h1 className="text-4xl">{toWords.convert(currentSecond)}</h1>
+				<h1 className="text-9xl">{toWords.convert(parseInt(currentHr))}</h1>
+				<h1 className="text-5xl">{toWords.convert(parseInt(currentMinute))}</h1>
+				<h1 className="text-4xl">{toWords.convert(parseInt(currentSecond))}</h1>
 			</div>
 		</Section>
 	</Page>
