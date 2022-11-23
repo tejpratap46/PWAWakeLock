@@ -35,17 +35,17 @@ const Index = () => {
 	return <Page title={released ? 'Not Aquired' : 'Aquired'}>
 		<Section>
 			<div className="flex items-center justify-center" style={{height: '70vh'}}>
-				{/* <h1>
+				<h1>
 					<span className='text-9xl'>{currentHr}</span>
 					<span className='text-5xl'>h&nbsp;&nbsp;&nbsp;</span>
 					<span className='text-9xl'>{currentMinute}</span>
 					<span className='text-5xl'>m&nbsp;&nbsp;&nbsp;</span>
 					<span className='text-9xl'>{currentSecond}</span>
 					<span className='text-5xl'>s</span>
-				</h1> */}
-				<h1 className="text-9xl">{toWords.convert(parseInt(currentHr))}</h1>
+				</h1>
+				{/* <h1 className="text-9xl">{toWords.convert(parseInt(currentHr))}</h1>
 				<h1 className="text-5xl">{toWords.convert(parseInt(currentMinute))}</h1>
-				<h1 className="text-4xl">{toWords.convert(parseInt(currentSecond))}</h1>
+				<h1 className="text-4xl">{toWords.convert(parseInt(currentSecond))}</h1> */}
 			</div>
 		</Section>
 	</Page>
