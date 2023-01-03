@@ -2,7 +2,7 @@ import Page from '@/components/page'
 
 import { useWakeLock } from 'react-screen-wake-lock'
 
-import DigitalClock from '@/components/hero/digital-clock';
+import WordClock from '@/components/hero/word-clock';
 
 const Index = () => {
 	const { isSupported, released, request, release } = useWakeLock({
@@ -16,7 +16,7 @@ const Index = () => {
 	}
 
 	return <Page title={released ? '🔴 Not Aquired' : '🟢 Aquired'}>
-		<DigitalClock />
+		<WordClock />
 	</Page>
 }
 

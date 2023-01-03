@@ -11,7 +11,7 @@ const Page = ({ title, children }: Props) => (
 	<>
 		{title ? (
 			<Head>
-				<title>Wake Lock | {title}</title>
+				<title>{title}</title>
 			</Head>
 		) : null}
 
