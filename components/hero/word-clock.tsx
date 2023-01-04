@@ -22,7 +22,7 @@ const WordClock = () => {
 
 	return <Section>
 		<div className='grid h-screen place-items-center' style={{ height: '70vh' }}>
-			<div style={{ width: 500, height: 500, overflow: 'hidden' }}>
+			<div style={{ width: 550, height: 550, overflow: 'hidden' }}>
 				<h1 className="text-6xl">
 					<span className='text-gray-400 dark:text-gray-700'>LOIIN</span>
 					<span>IT</span>
