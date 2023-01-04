@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Section from '@/components/section'
 import dayjs from 'dayjs'
 import { ToWords } from 'to-words';
@@ -21,7 +21,7 @@ const WordClock = () => {
 	}, 1000);
 
 	return <Section>
-		<div className='grid h-screen place-items-center' style={{ height: '70vh' }}>
+		<div className='grid h-screen place-items-center'>
 			<div style={{ width: 550, height: 550, overflow: 'hidden' }}>
 				<h1 className="text-6xl">
 					<span className='text-gray-400 dark:text-gray-700'>LOIIN</span>
@@ -59,7 +59,7 @@ const WordClock = () => {
 					}
 					<span className='text-gray-400 dark:text-gray-700'>WQEITAWQEITWLKWQEITWQEITH</span>
 				</h1>
-				<h1 className="text-6xl mt-4">
+				{/* <h1 className="text-6xl mt-4">
 					<span className='text-gray-400 dark:text-gray-700'>QE</span>
 					{
 						toWords.convert(parseInt(currentSecond)).split(' ').map((word, i) => {
@@ -70,7 +70,7 @@ const WordClock = () => {
 						})
 					}
 					<span className='text-gray-400 dark:text-gray-700'>WWQEIWQEITTTAWWQEITLKH</span>
-				</h1>
+				</h1> */}
 			</div>
 		</div>
 	</Section>
