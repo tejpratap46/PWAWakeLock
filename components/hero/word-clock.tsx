@@ -22,7 +22,7 @@ const WordClock = () => {
 
 	return <Section>
 		<div className='grid h-screen place-items-center' style={{ height: '70vh' }}>
-			<div>
+			<div style={{ width: 500, height: 500, overflow: 'hidden' }}>
 				<h1 className="text-6xl">
 					<span className='text-gray-400 dark:text-gray-700'>LOIIN</span>
 					<span>IT</span>
@@ -32,7 +32,7 @@ const WordClock = () => {
 				</h1>
 				<h1 className="text-6xl mt-4">
 					<span className='text-gray-400 dark:text-gray-700'>WQEIT</span>
-					<span>{toWords.convert(parseInt(currentMinute))}</span>
+					<span>{toWords.convert(parseInt(currentMinute)).split(' ').join('L')}</span>
 					<span className='text-gray-400 dark:text-gray-700'>AWLKH</span>
 				</h1>
 				<h1 className="text-6xl mt-4">
@@ -45,7 +45,11 @@ const WordClock = () => {
 					<span>{toWords.convert(parseInt(currentHr))}</span>
 					<span className='text-gray-400 dark:text-gray-700'>AWLKH</span>
 				</h1>
-				<h1 className="text-6xl mt-4">{toWords.convert(parseInt(currentSecond))}</h1>
+				<h1 className="text-6xl mt-4">
+					<span className='text-gray-400 dark:text-gray-700'>QE</span>
+					{toWords.convert(parseInt(currentSecond))}
+					<span className='text-gray-400 dark:text-gray-700'>WT</span>
+				</h1>
 			</div>
 		</div>
 	</Section>
