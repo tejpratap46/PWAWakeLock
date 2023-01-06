@@ -31,15 +31,15 @@ type Data = {
 	lon: number
 }
 
-export const getServerSideProps: GetServerSideProps<{ data: Data }> = async (context) => {
+export const getServerSideProps: GetServerSideProps<{ data: Data }> = async ({ req }) => {
 
-	const clientIP = context.req.headers["x-real-ip"]
+	const clientIP = req.headers['x-real-ip'] || req.connection.remoteAddress
 	const res = await fetch(`http://ip-api.com/json/${clientIP}`)
 	const data: Data = await res.json()
 
 	return {
-	  props: {
-		data,
-	  },
+		props: {
+			data,
+		},
 	}
-  }
+}
