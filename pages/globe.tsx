@@ -28,12 +28,22 @@ type Data = {
 	latitude: number,
 	longitude: number
 }
+type ApiResponse = {
+	loc: string
+}
 
 export const getServerSideProps: GetServerSideProps<{ data: Data }> = async ({ req }) => {
 
 	const clientIP = req.headers['cf-connecting-ip']
-	const res = await fetch(`https://ipapi.co/${clientIP}/json/`)
-	const data: Data = await res.json()
+	const res = await fetch(`https://ipinfo.io/${clientIP}/json?token=ef8461623ce04a`)
+	const apiResponse: ApiResponse = await res.json()
+
+	const [lat, long] = apiResponse.loc.split(",")
+
+	const data: Data = {
+		latitude: parseFloat(lat),
+		longitude: parseFloat(long)
+	}
 
 	return {
 		props: {
