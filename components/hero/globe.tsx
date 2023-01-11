@@ -8,7 +8,7 @@ const Globe = (props: GlobeProps) => {
 
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
-	const [location, setLocation] = useState<[number, number]>([lat || 0, long || 0])
+	const [location, setLocation] = useState<[number, number]>([lat, long])
 
 	// useEffect(() => {
 		// if (lat && long) {
@@ -67,6 +67,6 @@ const Globe = (props: GlobeProps) => {
 export default Globe
 
 interface GlobeProps {
-	lat?: number,
-	long?: number
+	lat: number,
+	long: number
 }
