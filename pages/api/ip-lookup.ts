@@ -9,14 +9,14 @@ type Data = {
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<any>
+	res: NextApiResponse<Data>
 ) {
 	// console.log(req.rawHeaders);
 
-	// const clientIP = req.headers['x-real-ip'] || req.connection.remoteAddress
-	// const ipResponse = await fetch(`http://ip-api.com/json/${clientIP}`)
+	const clientIP = req.headers['x-nf-client-connection-ip'] || req.connection.remoteAddress
+	const ipResponse = await fetch(`http://ip-api.com/json/${clientIP}`)
 
-	// const data: Data = await ipResponse.json()
+	const data: Data = await ipResponse.json()
 
-	res.status(200).json(req.headers)
+	res.status(200).json(data)
 }

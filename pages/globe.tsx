@@ -1,3 +1,5 @@
+import { GetServerSideProps } from 'next';
+
 import Page from '@/components/page'
 
 import { useWakeLock } from 'react-screen-wake-lock'
@@ -21,3 +23,23 @@ const Index = () => {
 }
 
 export default Index
+
+type Data = {
+	country: string,
+	countryCode: string,
+	lat: number,
+	lon: number
+}
+
+export const getServerSideProps: GetServerSideProps<{ data: Data }> = async ({ req }) => {
+
+	const clientIP = req.headers['x-nf-client-connection-ip'] || req.connection.remoteAddress
+	const res = await fetch(`http://ip-api.com/json/${clientIP}`)
+	const data: Data = await res.json()
+
+	return {
+		props: {
+			data,
+		},
+	}
+}
