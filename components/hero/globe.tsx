@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Section from '@/components/section'
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 
@@ -9,17 +8,17 @@ const Globe = (props: GlobeProps) => {
 
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
-	const [location, setLocation] = useState<[number, number]>([0, 0])
+	const [location, setLocation] = useState<[number, number]>([lat || 0, long || 0])
 
-	useEffect(() => {
-		if (lat && long) {
-			setLocation([long, lat])
-		} else {
-			navigator.geolocation.getCurrentPosition((location) => {
-				setLocation([location.coords.longitude, location.coords.latitude])
-			});
-		}
-	}, [lat, long])
+	// useEffect(() => {
+		// if (lat && long) {
+			// setLocation([lat!, long!])
+		// } else {
+		// 	navigator.geolocation.getCurrentPosition((location) => {
+		// 		setLocation([location.coords.longitude, location.coords.latitude])
+		// 	});
+		// }
+	// }, [lat, long])
 
 	useEffect(() => {
 		let phi = 0;

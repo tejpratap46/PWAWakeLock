@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import Section from '@/components/section'
 import dayjs from 'dayjs'
 import { ToWords } from 'to-words';
 

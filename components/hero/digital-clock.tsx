@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Section from '@/components/section'
 import dayjs from 'dayjs'
 
 const DigitalClock = () => {
