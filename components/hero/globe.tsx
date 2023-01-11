@@ -54,14 +54,12 @@ const Globe = (props: GlobeProps) => {
 		};
 	}, [location]);
 
-	return <Section>
-		<div className='grid h-screen place-items-center'>
-			<canvas
-				ref={canvasRef}
-				style={{ width: 600, height: 600, maxWidth: "100%", aspectRatio: "1" }}
-			/>
-		</div>
-	</Section>
+	return <div className='grid h-screen place-items-center'>
+		<canvas
+			ref={canvasRef}
+			style={{ width: 600, height: 600, maxWidth: "100%", aspectRatio: "1" }}
+		/>
+	</div>
 }
 
 export default Globe

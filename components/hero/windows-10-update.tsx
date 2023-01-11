@@ -9,11 +9,9 @@ const Windows10 = () => {
 		setUpdatePercentage(updatePercentage + 1);
 	}, 10000);
 
-	return <Section>
-		<div className='grid h-screen place-items-center'>
-			<h2>Working on updates {updatePercentage}% completed.</h2>
-		</div>
-	</Section>
+	return <div className='grid h-screen place-items-center'>
+		<h2>Working on updates {updatePercentage}% completed.</h2>
+	</div>
 }
 
 export default Windows10
