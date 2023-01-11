@@ -6,7 +6,7 @@ import { useWakeLock } from 'react-screen-wake-lock'
 
 import Globe from '@/components/hero/globe';
 
-const Index = () => {
+const Index = (data: Data) => {
 	const { isSupported, released, request, release } = useWakeLock({
 		// onRequest: () => alert('Screen Wake Lock: requested!'),
 		// onError: () => alert('An error happened 💥'),
@@ -18,23 +18,21 @@ const Index = () => {
 	}
 
 	return <Page title={released ? '🔴 Not Aquired' : '🟢 Aquired'}>
-		<Globe />
+		<Globe lat={data.latitude} long={data.longitude} />
 	</Page>
 }
 
 export default Index
 
 type Data = {
-	country: string,
-	countryCode: string,
-	lat: number,
-	lon: number
+	latitude: number,
+	longitude: number
 }
 
 export const getServerSideProps: GetServerSideProps<{ data: Data }> = async ({ req }) => {
 
-	const clientIP = req.headers['x-nf-client-connection-ip'] || req.connection.remoteAddress
-	const res = await fetch(`http://ip-api.com/json/${clientIP}`)
+	const clientIP = req.headers['cf-connecting-ip']
+	const res = await fetch(`https://ipapi.co/${clientIP}/json/`)
 	const data: Data = await res.json()
 
 	return {

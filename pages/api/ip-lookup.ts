@@ -1,25 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-	country: string,
-	countryCode: string,
-	lat: number,
-	lon: number
+	latitude: number,
+	longitude: number
 }
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<any>
+	res: NextApiResponse<Data>
 ) {
-	// console.log(req.rawHeaders);
+	console.log(req.rawHeaders);
 
-	// const clientIP = req.headers['x-real-ip'] || req.connection.remoteAddress
-	// const ipResponse = await fetch(`http://ip-api.com/json/${clientIP}`)
+	const clientIP = req.headers['cf-connecting-ip']
+	const ipResponse = await fetch(`https://ipapi.co/${clientIP}/json/`)
 
-	// const data: Data = await ipResponse.json()
+	const data: Data = await ipResponse.json()
 
-	res.status(200).json({
-		headers: req.headers,
-		rawHeaders: req.rawHeaders
-	})
+	res.status(200).json(data)
 }
