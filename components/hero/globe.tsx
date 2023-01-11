@@ -55,7 +55,7 @@ const Globe = (props: GlobeProps) => {
 
 	return <div className='grid h-screen place-items-center'>
 		<canvas onClick={() => {
-			console.log(location);
+			console.log(location, props);
 
 		}}
 			ref={canvasRef}
