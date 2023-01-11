@@ -18,5 +18,5 @@ export default async function handler(
 
 	// const data: Data = await ipResponse.json()
 
-	res.status(200).json(req.rawHeaders)
+	res.status(200).json(req.headers)
 }
