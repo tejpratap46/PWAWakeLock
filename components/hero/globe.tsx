@@ -38,7 +38,7 @@ const Globe = (props: GlobeProps) => {
 			glowColor: [1, 1, 1],
 			markers: [
 				// longitude latitude
-				{ location: location, size: 0.1 }
+				{ location: location, size: 0.05 }
 			],
 			onRender: (state) => {
 				// Called on every animation frame.
@@ -54,7 +54,10 @@ const Globe = (props: GlobeProps) => {
 	}, [location]);
 
 	return <div className='grid h-screen place-items-center'>
-		<canvas
+		<canvas onClick={() => {
+			console.log(location);
+
+		}}
 			ref={canvasRef}
 			style={{ width: 600, height: 600, maxWidth: "100%", aspectRatio: "1" }}
 		/>
