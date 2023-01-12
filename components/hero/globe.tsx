@@ -10,15 +10,15 @@ const Globe = (props: GlobeProps) => {
 
 	const [location, setLocation] = useState<[number, number]>([lat, long])
 
-	// useEffect(() => {
-		// if (lat && long) {
-			// setLocation([lat!, long!])
-		// } else {
-		// 	navigator.geolocation.getCurrentPosition((location) => {
-		// 		setLocation([location.coords.longitude, location.coords.latitude])
-		// 	});
-		// }
-	// }, [lat, long])
+	useEffect(() => {
+		if (lat && long) {
+			setLocation([lat!, long!])
+		} else {
+			navigator.geolocation.getCurrentPosition((location) => {
+				setLocation([location.coords.latitude, location.coords.longitude])
+			});
+		}
+	}, [lat, long])
 
 	useEffect(() => {
 		let phi = 0;
