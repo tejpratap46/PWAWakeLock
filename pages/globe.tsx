@@ -17,8 +17,8 @@ const Index = (data: Data) => {
 		request()
 	}
 
-	return <Page title={released ? '🔴 Not Aquired' : '🟢 Aquired'}>
-		<Globe lat={data.latitude} long={data.longitude} />
+	return <Page title={released ? '🔴 Not Aquired, Refresh Page' : '🟢 Aquired, Do now switch page, Press F11 for Full Screen'}>
+		<Globe isAquired={!release} lat={data.latitude} long={data.longitude} />
 	</Page>
 }
 

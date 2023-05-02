@@ -15,7 +15,7 @@ const Index = () => {
 		request()
 	}
 
-	return <Page title={released ? '🔴 Not Aquired' : '🟢 Aquired'}>
+	return <Page title={released ? '🔴 Not Aquired, Refresh Page' : '🟢 Aquired, Do now switch page, Press F11 for Full Screen'}>
 		<WordClock />
 	</Page>
 }

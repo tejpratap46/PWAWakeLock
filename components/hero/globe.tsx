@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 const Globe = (props: GlobeProps) => {
 
-	const { lat, long } = props
+	const { lat, long, isAquired } = props
 
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -33,7 +33,7 @@ const Globe = (props: GlobeProps) => {
 			diffuse: 1.2,
 			mapSamples: 16000,
 			mapBrightness: 6,
-			baseColor: [0.3, 0.3, 0.3],
+			baseColor: isAquired ? [0.3, 0.3, 0.3] : [1, 0, 0],
 			markerColor: [0.1, 0.8, 1],
 			glowColor: [1, 1, 1],
 			markers: [
@@ -67,6 +67,7 @@ const Globe = (props: GlobeProps) => {
 export default Globe
 
 interface GlobeProps {
+	isAquired: boolean = true
 	lat: number,
 	long: number
 }
