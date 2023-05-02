@@ -67,7 +67,7 @@ const Globe = (props: GlobeProps) => {
 export default Globe
 
 interface GlobeProps {
-	isAquired: boolean = true
+	isAquired?: boolean
 	lat: number,
 	long: number
 }
