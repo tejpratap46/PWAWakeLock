@@ -9,7 +9,7 @@ const Windows10 = () => {
 	}, 10000);
 
 	return <div className='grid h-screen place-items-center'>
-		<h2>Working on updates {updatePercentage}% completed.</h2>
+		<h2 className='text-xl'>Working on updates {updatePercentage}% completed.</h2>
 	</div>
 }
 
