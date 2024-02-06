@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import createGlobe from 'cobe'
 import { useEffect, useRef } from 'react'
+import { useSpring } from 'react-spring'
 
 const Globe = (props: GlobeProps) => {
 	const { lat, long, isAquired } = props
 
-	const canvasRef = useRef<HTMLCanvasElement>(null)
+	const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
 	const [location, setLocation] = useState<[number, number]>([lat, long])
 
@@ -19,10 +20,27 @@ const Globe = (props: GlobeProps) => {
 		}
 	}, [lat, long])
 
+	const pointerInteracting = useRef<number | null>(null)
+	const pointerInteractionMovement = useRef(0)
+	const [{ r }, api] = useSpring(() => ({
+		r: 0,
+		config: {
+			mass: 1,
+			tension: 280,
+			friction: 40,
+			precision: 0.001,
+		},
+	}))
+
 	const height = 800
 
 	useEffect(() => {
 		let phi = 0
+		let width = 0
+		const onResize = () =>
+			canvasRef.current && (width = canvasRef.current.offsetWidth)
+		window.addEventListener('resize', onResize)
+		onResize()
 
 		const globe = createGlobe(canvasRef!.current!, {
 			devicePixelRatio: 2,
@@ -43,23 +61,57 @@ const Globe = (props: GlobeProps) => {
 				{ location: location, size: 0.05 },
 			],
 			onRender: (state) => {
-				// Called on every animation frame.
-				// `state` will be an empty object, return updated params.
-				state.phi = phi
-				phi += 0.01
+				// This prevents rotation while dragging
+				if (!pointerInteracting.current) {
+					// Called on every animation frame.
+					// `state` will be an empty object, return updated params.
+					phi += 0.005
+				}
+				state.phi = phi + r.get()
+				state.width = width * 2
+				state.height = width * 2
 			},
 		})
 
 		return () => {
 			globe.destroy()
+			window.removeEventListener('resize', onResize)
 		}
-	}, [location])
+	})
 
 	return (
 		<div className='grid h-screen place-items-center'>
 			<canvas
-				onClick={() => {
-					console.log(location, props)
+				onPointerDown={(e) => {
+					pointerInteracting.current =
+						e.clientX - pointerInteractionMovement.current
+					canvasRef!.current!.style.cursor = 'grabbing'
+				}}
+				onPointerUp={() => {
+					pointerInteracting.current = null
+					canvasRef!.current!.style.cursor = 'grab'
+				}}
+				onPointerOut={() => {
+					pointerInteracting.current = null
+					canvasRef!.current!.style.cursor = 'grab'
+				}}
+				onMouseMove={(e) => {
+					if (pointerInteracting.current !== null) {
+						const delta = e.clientX - pointerInteracting.current
+						pointerInteractionMovement.current = delta
+						api.start({
+							r: delta / 200,
+						})
+					}
+				}}
+				onTouchMove={(e) => {
+					if (pointerInteracting.current !== null && e.touches[0]) {
+						const delta = e.touches[0].clientX - pointerInteracting.current
+						pointerInteractionMovement.current = delta
+						api.start({
+							r: delta / 100,
+						})
+					}
 				}}
 				ref={canvasRef}
 				style={{
