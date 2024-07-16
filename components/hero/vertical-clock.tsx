@@ -5,7 +5,9 @@ const VerticalTimeBar = () => {
 
 	useEffect(() => {
 		const timer = setInterval(() => {
-			setTime(new Date())
+			const date = new Date()
+			console.log(date)
+			setTime(date)
 		}, 1000)
 
 		return () => clearInterval(timer)
