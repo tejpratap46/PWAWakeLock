@@ -36,7 +36,7 @@ const VerticalTimeBar = () => {
 	const mapToValue = (label: string, value: string) => {
 		switch (label) {
 			case 'MidNight':
-				return value == parseInt(value) ? 'am' : 'pm';
+				return parseInt(value) == 0 ? 'am' : 'pm';
 			default:
 				return value;
 		}
