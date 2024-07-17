@@ -36,9 +36,7 @@ const VerticalTimeBar = () => {
 	const mapToValue = (label: string, value: number) => {
 		switch (label) {
 			case 'MidNight':
-				
 				return value == 0 ? 'am' : 'pm';
-		
 			default:
 				return value;
 		}
@@ -55,7 +53,7 @@ const VerticalTimeBar = () => {
 					},
 					{ values: minutes, current: time.getMinutes(), label: 'Minutes' },
 					{ values: seconds, current: time.getSeconds(), label: 'Seconds' },
-					{ values: seconds, current: time.getHours() < 12 ? 0 : 1, label: 'MidNight' },
+					{ values: midnight, current: time.getHours() < 12 ? 0 : 1, label: 'MidNight' },
 				].map(({ values, current, label }) => (
 					<div key={label} className='flex flex-col items-center'>
 						<div className='rounded-lg h-0' style={{ marginTop: -100 }}>
@@ -66,7 +64,7 @@ const VerticalTimeBar = () => {
 								{values.map((value, index) => (
 									<div
 										key={index}
-										className={`md:h-32 h-8 md:w-64 w-8 p-4 flex items-center justify-center font-lilita md:text-9xl text-2xl ${
+										className={`md:h-32 h-16 md:w-64 w-16 p-4 flex items-center justify-center font-lilita md:text-9xl text-4xl ${
 											index === current
 												? 'text-blue-500 font-bold'
 												: 'text-gray-400 font-extralight'
