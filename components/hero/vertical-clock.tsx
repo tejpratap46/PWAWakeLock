@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 const VerticalTimeBar = () => {
-	const [time, setTime] = useState(new Date())
+	const [time, setTime] = useState(new Date(0))
 
 	useEffect(() => {
 		const timer = setInterval(() => {
