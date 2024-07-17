@@ -22,7 +22,7 @@ const Page = ({ title, children }: Props) => {
 	return (
 		<>
 			<Head>
-				<title>{ title={released ? '🔴 Not Aquired, Refresh Page' : '🟢 Aquired, Do now switch page, Press F11 for Full Screen'}}</title>
+				<title>{released ? '🔴 Not Aquired, Refresh Page' : '🟢 Aquired, Do now switch page, Press F11 for Full Screen'}</title>
 			</Head>
 
 			{/* <Appbar /> */}
