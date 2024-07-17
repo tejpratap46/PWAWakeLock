@@ -34,7 +34,6 @@ const ConcentricRotatingWatchface = () => {
                     fontWeight={i === value ? "bold" : "normal"}
                     textAnchor="middle"
                     alignmentBaseline="central"
-                    transform={`rotate(${i * (360 / count)}, ${x}, ${y})`}
                 >
                     {i.toString().padStart(2, '0')}
                 </text>
@@ -44,8 +43,8 @@ const ConcentricRotatingWatchface = () => {
     };
 
     return (
-        <div className="h-full w-full">
-            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <div className="h-full w-full content-center">
+            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}` style={{transform: 'rotate(90deg)'}}}>
                 <circle cx={center} cy={center} r={secondRadius + 20} fill="#000000" />
 
                 {/* Hour ring */}
