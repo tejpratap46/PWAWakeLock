@@ -44,8 +44,8 @@ const ConcentricRotatingWatchface = () => {
     };
 
     return (
-        <div className="h-screen w-full content-center">
-            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{transform: 'rotate(90deg)'}}>
+        <div className="h-screen w-full">
+            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{transform: 'rotate(90deg)', margin: 'auto'}}>
                 <circle cx={center} cy={center} r={secondRadius + 20} />
 
                 {/* Hour ring */}
