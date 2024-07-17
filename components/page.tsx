@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Appbar from '@/components/appbar'
 import BottomNav from '@/components/bottom-nav'
+import { useWakeLock } from 'react-screen-wake-lock'
 
 interface Props {
 	title?: string
@@ -8,13 +9,21 @@ interface Props {
 }
 
 const Page = ({ title, children }: Props) => {
+	const { isSupported, released, request, release } = useWakeLock({
+		// onRequest: () => alert('Screen Wake Lock: requested!'),
+		// onError: () => alert('An error happened 💥'),
+		// onRelease: () => alert('Screen Wake Lock: released!'),
+	})
+
+	if (isSupported) {
+		request()
+	}
+
 	return (
 		<>
-			{title ? (
-				<Head>
-					<title>{title}</title>
-				</Head>
-			) : null}
+			<Head>
+				<title>{ title={released ? '🔴 Not Aquired, Refresh Page' : '🟢 Aquired, Do now switch page, Press F11 for Full Screen'}}</title>
+			</Head>
 
 			{/* <Appbar /> */}
 
