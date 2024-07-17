@@ -26,10 +26,22 @@ const VerticalTimeBar = () => {
 	const hours = createHourArray(12)
 	const minutes = createNumberArray(60)
 	const seconds = createNumberArray(60)
+	const midnight = createNumberArray(2)
 
 	const getTransform = (current: number, max: number) => {
 		const percentage = (current / max) * 100
 		return `translateY(-${percentage}%)`
+	}
+
+	const mapToValue = (label: string, value: number) => {
+		switch (label) {
+			case 'MidNight':
+				
+				return value == 0 ? 'am' : 'pm';
+		
+			default:
+				return value;
+		}
 	}
 
 	return (
@@ -38,11 +50,12 @@ const VerticalTimeBar = () => {
 				{[
 					{
 						values: hours,
-						current: time.getHours() % 12 || 12,
+						current: time.getHours() % 12,
 						label: 'Hours',
 					},
 					{ values: minutes, current: time.getMinutes(), label: 'Minutes' },
 					{ values: seconds, current: time.getSeconds(), label: 'Seconds' },
+					{ values: seconds, current: time.getHours() < 12 ? 0 : 1, label: 'MidNight' },
 				].map(({ values, current, label }) => (
 					<div key={label} className='flex flex-col items-center'>
 						<div className='rounded-lg h-0' style={{ marginTop: -100 }}>
@@ -59,7 +72,7 @@ const VerticalTimeBar = () => {
 												: 'text-gray-400 font-extralight'
 										}`}
 									>
-										{value}
+										{mapToValue(label, value)}
 									</div>
 								))}
 							</div>
