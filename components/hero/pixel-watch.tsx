@@ -44,23 +44,23 @@ const ConcentricRotatingWatchface = () => {
     };
 
     return (
-        <div className="h-screen w-full">
+        <div className="flex flex-row min-h-screen justify-center items-center w-full">
             <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{transform: 'rotate(90deg)', margin: 'auto'}}>
                 <circle cx={center} cy={center} r={secondRadius + 20} />
 
                 {/* Hour ring */}
                 <g transform={`rotate(${-hours * 30}, ${center}, ${center})`}>
-                    {createRing(hourRadius, 12, hours, 36)}
+                    {createRing(hourRadius, 12, hours, 40)}
                 </g>
 
                 {/* Minute ring */}
                 <g transform={`rotate(${-minutes * 6}, ${center}, ${center})`}>
-                    {createRing(minuteRadius, 60, minutes, 24)}
+                    {createRing(minuteRadius, 60, minutes, 20)}
                 </g>
 
                 {/* Second ring */}
                 <g transform={`rotate(${-seconds * 6}, ${center}, ${center})`}>
-                    {createRing(secondRadius, 60, seconds, 24)}
+                    {createRing(secondRadius, 60, seconds, 20)}
                 </g>
 
                 {/* Center dot */}
