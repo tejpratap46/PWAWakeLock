@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const ConcentricRotatingWatchface = () => {
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(new Date(0));
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -12,7 +12,7 @@ const ConcentricRotatingWatchface = () => {
   const center = size / 2;
   const hourRadius = 70 * 2;
   const minuteRadius = 110 * 2;
-  const secondRadius = 150 * 2;
+  const secondRadius = 150;
 
   const hours = time.getHours() % 12;
   const minutes = time.getMinutes();
