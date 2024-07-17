@@ -12,7 +12,7 @@ const ConcentricRotatingWatchface = () => {
     const center: number = size / 2;
     const hourRadius: number = 70 * 2;
     const minuteRadius: number = 110 * 2;
-    const secondRadius: number = 150;
+    const secondRadius: number = 150 * 2;
 
     const hours: number = time.getHours() % 12;
     const minutes: number = time.getMinutes();
@@ -44,27 +44,29 @@ const ConcentricRotatingWatchface = () => {
     };
 
     return (
-        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-            <circle cx={center} cy={center} r={secondRadius + 20} fill="#000000" />
+        <div className="h-full w-full">
+            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+                <circle cx={center} cy={center} r={secondRadius + 20} fill="#000000" />
 
-            {/* Hour ring */}
-            <g transform={`rotate(${-hours * 30}, ${center}, ${center})`}>
-                {createRing(hourRadius, 12, hours, 24)}
-            </g>
+                {/* Hour ring */}
+                <g transform={`rotate(${-hours * 30}, ${center}, ${center})`}>
+                    {createRing(hourRadius, 12, hours, 24)}
+                </g>
 
-            {/* Minute ring */}
-            <g transform={`rotate(${-minutes * 6}, ${center}, ${center})`}>
-                {createRing(minuteRadius, 60, minutes, 16)}
-            </g>
+                {/* Minute ring */}
+                <g transform={`rotate(${-minutes * 6}, ${center}, ${center})`}>
+                    {createRing(minuteRadius, 60, minutes, 16)}
+                </g>
 
-            {/* Second ring */}
-            <g transform={`rotate(${-seconds * 6}, ${center}, ${center})`}>
-                {createRing(secondRadius, 60, seconds, 12)}
-            </g>
+                {/* Second ring */}
+                <g transform={`rotate(${-seconds * 6}, ${center}, ${center})`}>
+                    {createRing(secondRadius, 60, seconds, 12)}
+                </g>
 
-            {/* Center dot */}
-            <circle cx={center} cy={center} r={5} fill="#ffffff" />
-        </svg>
+                {/* Center dot */}
+                <circle cx={center} cy={center} r={5} fill="#ffffff" />
+            </svg>
+        </div>
     );
 };
 
