@@ -34,6 +34,7 @@ const ConcentricRotatingWatchface = () => {
                     fontWeight={i === value ? "bold" : "normal"}
                     textAnchor="middle"
                     alignmentBaseline="central"
+                    transform={`rotate(${i * (360 / count)}, ${x}, ${y})`}
                 >
                     {i.toString().padStart(2, '0')}
                 </text>
