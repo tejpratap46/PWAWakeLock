@@ -7,7 +7,7 @@ import Globe from '@/components/hero/globe'
 const Index = (data: Data) => {
 	return (
 		<Page>
-			<Globe isAquired={!release} lat={data.latitude} long={data.longitude} />
+			<Globe lat={data.latitude} long={data.longitude} />
 		</Page>
 	)
 }

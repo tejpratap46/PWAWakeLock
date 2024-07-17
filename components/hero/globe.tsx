@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { useSpring } from 'react-spring'
 
 const Globe = (props: GlobeProps) => {
-	const { lat, long, isAquired } = props
+	const { lat, long } = props
 
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
@@ -128,7 +128,6 @@ const Globe = (props: GlobeProps) => {
 export default Globe
 
 interface GlobeProps {
-	isAquired: boolean
 	lat: number
 	long: number
 }
