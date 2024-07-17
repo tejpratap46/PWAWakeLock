@@ -33,10 +33,10 @@ const VerticalTimeBar = () => {
 		return `translateY(-${percentage}%)`
 	}
 
-	const mapToValue = (label: string, value: number) => {
+	const mapToValue = (label: string, value: string) => {
 		switch (label) {
 			case 'MidNight':
-				return value == 0 ? 'am' : 'pm';
+				return value == parseInt(value) ? 'am' : 'pm';
 			default:
 				return value;
 		}
