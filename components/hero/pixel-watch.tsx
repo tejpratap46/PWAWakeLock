@@ -23,7 +23,7 @@ const ConcentricRotatingWatchface = () => {
 	const seconds: number = time.getSeconds()
 
 	const getColor = (type: string, index: number, value: number) => {
-		const isVisible = index % 5 == 0 || type == 'hour'
+		const isVisible = (index % 5 == 0) || (type == 'hour')
 		if (index == value) {
 			return '#ff0000'
 		} else if (isVisible && Math.abs((index / 5) - value) > 4) {
@@ -40,6 +40,14 @@ const ConcentricRotatingWatchface = () => {
 			return 'Monoton'
 		} else {
 			return 'Kode Mono'
+		}
+	}
+
+	const getValue = (type: string, index: number) => {
+		if (type == SECOND) {
+			return value
+		} else {
+			return value || 12
 		}
 	}
 
@@ -68,7 +76,7 @@ const ConcentricRotatingWatchface = () => {
 					alignmentBaseline='central'
 					transform={`rotate(${i * (360 / count)}, ${x}, ${y})`}
 				>
-					{(i || 12).toString().padStart(2, '0')}
+					{getValue(type, i).toString().padStart(2, '0')}
 				</text>,
 			)
 		}
