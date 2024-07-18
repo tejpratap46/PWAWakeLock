@@ -1,31 +1,36 @@
-import { useState } from 'react'
-import dayjs from 'dayjs'
+import { useState, useEffect } from 'react'
 
 const DigitalClock = () => {
-	const hrFormat = 'hh';
-	const minuteFormat = 'mm';
-	const secondFormat = 'ss';
+	const [time, setTime] = useState(new Date(0))
 
-	const [currentHr, setCurrentHr] = useState(dayjs().format(hrFormat));
-	const [currentMinute, setCurrentMinute] = useState(dayjs().format(minuteFormat));
-	const [currentSecond, setCurrentSecond] = useState(dayjs().format(secondFormat));
+	useEffect(() => {
+		const timer = setInterval(() => setTime(new Date()), 1000)
+		return () => clearInterval(timer)
+	}, [])
 
-	setInterval(() => {
-		setCurrentHr(dayjs().format(hrFormat));
-		setCurrentMinute(dayjs().format(minuteFormat));
-		setCurrentSecond(dayjs().format(secondFormat));
-	}, 1000);
+	const padNumber = (num: number) => num.toString().padStart(2, '0')
 
-	return <div className='grid h-screen place-items-center' style={{ height: '70vh' }}>
-		<h1>
-			<span className='text-9xl'>{currentHr}</span>
-			<span className='text-5xl'>h&nbsp;&nbsp;&nbsp;</span>
-			<span className='text-9xl'>{currentMinute}</span>
-			<span className='text-5xl'>m&nbsp;&nbsp;&nbsp;</span>
-			<span className='text-9xl'>{currentSecond}</span>
-			<span className='text-5xl'>s</span>
-		</h1>
-	</div>
+	return (
+		<div
+			className='grid h-screen place-items-center'
+			style={{ height: '70vh' }}
+		>
+			<h1 className='font-lilita'>
+				<span className='w-40 text-9xl inline-block'>
+					{padNumber(time.getHours() % 12 || 12)}
+				</span>
+				<span className='text-5xl inline-block'>h&nbsp;&nbsp;&nbsp;</span>
+				<span className='w-40 text-9xl inline-block'>
+					{padNumber(time.getMinutes())}
+				</span>
+				<span className='text-5xl inline-block'>m&nbsp;&nbsp;&nbsp;</span>
+				<span className='w-40 text-9xl inline-block'>
+					{padNumber(time.getSeconds())}
+				</span>
+				<span className='text-5xl inline-block'>s</span>
+			</h1>
+		</div>
+	)
 }
 
 export default DigitalClock

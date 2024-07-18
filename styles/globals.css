@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -23,4 +24,12 @@ body {
 
 .font-kode {
 	font-family: 'Kode Mono', system-ui;
+}
+
+.font-monoton {
+	font-family: 'Monoton', system-ui;
+}
+
+.font-righteous {
+	font-family: 'Righteous', system-ui;
 }

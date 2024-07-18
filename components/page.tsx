@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Appbar from '@/components/appbar'
 import BottomNav from '@/components/bottom-nav'
 import { useWakeLock } from 'react-screen-wake-lock'
+import BrowserTabSwitchWarning from './BrowserTabSwitchWarning'
 
 interface Props {
 	title?: string
@@ -22,7 +23,11 @@ const Page = ({ title, children }: Props) => {
 	return (
 		<>
 			<Head>
-				<title>{released ? '🔴 Not Aquired, Refresh Page' : '🟢 Aquired, Do now switch page, Press F11 for Full Screen'}</title>
+				<title>
+					{released
+						? '🔴 Not Aquired, Refresh Page'
+						: '🟢 Aquired, Do now switch page, Press F11 for Full Screen'}
+				</title>
 			</Head>
 
 			{/* <Appbar /> */}
@@ -37,6 +42,7 @@ const Page = ({ title, children }: Props) => {
 				}}
 			>
 				<div>{children}</div>
+				<BrowserTabSwitchWarning />
 			</main>
 
 			{/* <BottomNav /> */}
