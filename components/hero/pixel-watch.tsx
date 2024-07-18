@@ -44,10 +44,10 @@ const ConcentricRotatingWatchface = () => {
 	}
 
 	const getValue = (type: string, index: number) => {
-		if (type == SECOND) {
-			return value
-		} else {
+		if (type == HOUR) {
 			return value || 12
+		} else {
+			return value
 		}
 	}
 
