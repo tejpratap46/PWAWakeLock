@@ -23,9 +23,10 @@ const ConcentricRotatingWatchface = () => {
 	const seconds: number = time.getSeconds()
 
 	const getColor = (type: string, index: number, value: number) => {
+		const isVisible = index % 5 == 0 || type == 'hour'
 		if (index == value) {
 			return '#ff0000'
-		} else if (index % 5 == 0 || type == 'hour') {
+		} else if (isVisible && Math.abs(index / 5, value) > 4) {
 			return '#ffffff'
 		} else {
 			return '#00000000'
@@ -56,7 +57,6 @@ const ConcentricRotatingWatchface = () => {
 			const y = center + radius * Math.sin(angle)
 			items.push(
 				<text
-					id={i === value ? type : ''}
 					key={i}
 					x={x}
 					y={y}
