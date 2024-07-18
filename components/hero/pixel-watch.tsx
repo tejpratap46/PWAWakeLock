@@ -87,8 +87,8 @@ const ConcentricRotatingWatchface = () => {
 	return (
 		<div className='flex flex-row min-h-screen justify-center items-center w-full'>
 			<svg
-				width={'100%'}
-				height={'100%'}
+				width={size}
+				height={size}
 				viewBox={`0 0 ${size} ${size}`}
 				style={{ transform: 'rotate(90deg)', margin: 'auto' }}
 			>
