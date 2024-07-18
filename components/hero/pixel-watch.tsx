@@ -70,8 +70,8 @@ const ConcentricRotatingWatchface = () => {
 					x={x}
 					y={y}
 					fill={getColor(type, i, value)}
-					fontSize={i === value ? fontSize : fontSize / 1.5}
-					fontWeight={i === value ? 'normal' : 'lighter'}
+					fontSize={i == value ? fontSize : fontSize / 1.5}
+					fontWeight={i == value ? 'normal' : 'lighter'}
 					fontFamily={getFontFamily(type)}
 					textAnchor='middle'
 					alignmentBaseline='central'
@@ -87,8 +87,8 @@ const ConcentricRotatingWatchface = () => {
 	return (
 		<div className='flex flex-row min-h-screen justify-center items-center w-full'>
 			<svg
-				width={size}
-				height={size}
+				width={'100%'}
+				height={'100%'}
 				viewBox={`0 0 ${size} ${size}`}
 				style={{ transform: 'rotate(90deg)', margin: 'auto' }}
 			>
