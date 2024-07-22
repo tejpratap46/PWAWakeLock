@@ -1,11 +1,11 @@
 import Page from '@/components/page'
 
-import ConcentricRotatingWatchface from '@/components/hero/pixel-watch'
+import AppleWatchFace from '../components/hero/apple-watch'
 
 const Index = () => {
 	return (
 		<Page>
-			<ConcentricRotatingWatchface />
+			<AppleWatchFace />
 		</Page>
 	)
 }

@@ -1,11 +1,11 @@
 import Page from '@/components/page'
 
-import ConcentricRotatingWatchface from '@/components/hero/pixel-watch'
+import ThreeJsDigitalClock from '@/components/hero/three-d-clock'
 
 const Index = () => {
 	return (
 		<Page>
-			<ConcentricRotatingWatchface />
+			<ThreeJsDigitalClock />
 		</Page>
 	)
 }
