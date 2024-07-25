@@ -63,7 +63,7 @@ const VerticalTimeBar = () => {
 							>
 								{values.map((value, index) => (
 									<div
-										key={index}
+										key={`${label}${index}`}
 										className={`md:h-32 h-16 md:w-64 w-16 p-4 flex items-center justify-center font-lilita md:text-9xl text-4xl ${
 											index === current
 												? 'text-blue-500 font-bold'

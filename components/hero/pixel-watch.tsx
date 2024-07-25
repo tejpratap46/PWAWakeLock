@@ -66,7 +66,7 @@ const ConcentricRotatingWatchface = () => {
 			const y = center + radius * Math.sin(angle)
 			items.push(
 				<text
-					key={i}
+					key={`type${i}`}
 					x={x}
 					y={y}
 					fill={getColor(type, i, value)}
