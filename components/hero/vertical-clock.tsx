@@ -2,16 +2,35 @@ import React, { useState, useEffect } from 'react'
 
 const VerticalTimeBar = () => {
 	const [time, setTime] = useState(new Date(0))
+	const [animatedTick, setAnimatedTick] = useState(1)
+	const [shouldStartClock, setShouldStartClock] = useState(false)
 
 	useEffect(() => {
 		const timer = setInterval(() => {
-			const date = new Date()
-			console.log(date)
-			setTime(date)
-		}, 1000)
+			time.setSeconds(time.getSeconds() + animatedTick * 10)
+			time.setMinutes(time.getSeconds() + animatedTick * 10)
+			if (animatedTick % 2 == 0) {
+				time.setHours(time.getSeconds() + animatedTick / 2)
+			}
 
+			if (animatedTick >= 6) {
+				clearInterval(timer)
+				setShouldStartClock(true)
+				setTime(new Date())
+			} else {
+				setAnimatedTick(animatedTick + 1)
+				setTime(time)
+			}
+		}, 100)
 		return () => clearInterval(timer)
-	}, [])
+	}, [animatedTick, time])
+
+	useEffect(() => {
+		if (shouldStartClock) {
+			const timer = setInterval(() => setTime(new Date()), 1000)
+			return () => clearInterval(timer)
+		}
+	}, [shouldStartClock])
 
 	const padNumber = (num: number) => num.toString().padStart(2, '0')
 
@@ -36,9 +55,9 @@ const VerticalTimeBar = () => {
 	const mapToValue = (label: string, value: string) => {
 		switch (label) {
 			case 'MidNight':
-				return parseInt(value) == 0 ? 'am' : 'pm';
+				return parseInt(value) == 0 ? 'am' : 'pm'
 			default:
-				return value;
+				return value
 		}
 	}
 
@@ -53,7 +72,11 @@ const VerticalTimeBar = () => {
 					},
 					{ values: minutes, current: time.getMinutes(), label: 'Minutes' },
 					{ values: seconds, current: time.getSeconds(), label: 'Seconds' },
-					{ values: midnight, current: time.getHours() < 12 ? 0 : 1, label: 'MidNight' },
+					{
+						values: midnight,
+						current: time.getHours() < 12 ? 0 : 1,
+						label: 'MidNight',
+					},
 				].map(({ values, current, label }) => (
 					<div key={label} className='flex flex-col items-center'>
 						<div className='rounded-lg h-0' style={{ marginTop: -100 }}>

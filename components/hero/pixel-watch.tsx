@@ -1,16 +1,40 @@
 import React, { useState, useEffect } from 'react'
 
 const ConcentricRotatingWatchface = () => {
-	const [time, setTime] = useState(new Date(0))
-
 	const HOUR = 'hour'
 	const MINUTE = 'minute'
 	const SECOND = 'second'
 
+	const [time, setTime] = useState(new Date(0))
+	const [animatedTick, setAnimatedTick] = useState(1)
+	const [shouldStartClock, setShouldStartClock] = useState(false)
+
 	useEffect(() => {
-		const timer = setInterval(() => setTime(new Date()), 1000)
+		const timer = setInterval(() => {
+			time.setSeconds(time.getSeconds() + animatedTick * 10)
+			time.setMinutes(time.getSeconds() + animatedTick * 10)
+			if (animatedTick % 2 == 0) {
+				time.setHours(time.getSeconds() + animatedTick / 2)
+			}
+
+			if (animatedTick >= 6) {
+				clearInterval(timer)
+				setShouldStartClock(true)
+				setTime(new Date())
+			} else {
+				setAnimatedTick(animatedTick + 1)
+				setTime(time)
+			}
+		}, 100)
 		return () => clearInterval(timer)
-	}, [])
+	}, [animatedTick, time])
+
+	useEffect(() => {
+		if (shouldStartClock) {
+			const timer = setInterval(() => setTime(new Date()), 1000)
+			return () => clearInterval(timer)
+		}
+	}, [shouldStartClock])
 
 	const size: number = 400 * 2
 	const center: number = size / 2
@@ -26,11 +50,11 @@ const ConcentricRotatingWatchface = () => {
 		const hideThreshold = 2
 		const isVisible = index % 5 == 0 && Math.abs(index - value) > hideThreshold
 		if (index == value) {
-			return '#ff0000'
+			return 'fill-red-900'
 		} else if (isVisible || type == HOUR) {
-			return '#ffffff'
+			return 'fill-slate-400 dark:fill-white'
 		} else {
-			return '#00000000'
+			return 'fill-transparent'
 		}
 	}
 
@@ -66,10 +90,15 @@ const ConcentricRotatingWatchface = () => {
 			const y = center + radius * Math.sin(angle)
 			items.push(
 				<text
+<<<<<<< HEAD
 					key={`type${i}`}
+=======
+					key={i}
+					className={getColor(type, i, value)}
+>>>>>>> c0cb898 (added animation for clock pw and vertical)
 					x={x}
 					y={y}
-					fill={getColor(type, i, value)}
+					fill='none'
 					fontSize={i == value ? fontSize : fontSize / 1.5}
 					fontWeight={i == value ? 'normal' : 'lighter'}
 					fontFamily={getFontFamily(type)}
