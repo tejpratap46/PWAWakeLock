@@ -90,12 +90,8 @@ const ConcentricRotatingWatchface = () => {
 			const y = center + radius * Math.sin(angle)
 			items.push(
 				<text
-<<<<<<< HEAD
-					key={`type${i}`}
-=======
 					key={i}
 					className={getColor(type, i, value)}
->>>>>>> c0cb898 (added animation for clock pw and vertical)
 					x={x}
 					y={y}
 					fill='none'
