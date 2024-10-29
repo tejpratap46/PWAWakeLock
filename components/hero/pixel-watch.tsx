@@ -46,11 +46,13 @@ const ConcentricRotatingWatchface = () => {
 	const minutes: number = time.getMinutes()
 	const seconds: number = time.getSeconds()
 
+	const isBetween = (num1: number, num2: number, value: number) => value > num1 && value < num2
+
 	const getColor = (type: string, index: number, value: number) => {
 		const hideThreshold = 2
 		let isVisible = index % 5 == 0 && Math.abs(index - value) > hideThreshold
-		if (isVisible) {
-			isVisible = (value + hideThreshold) >= 60
+		if (isVisible && isBetween(value - hideThreshold, value + hideThreshold, index)) {
+			isVisible = false
 		}
 		if (index == value) {
 			return 'fill-red-900'
