@@ -49,7 +49,7 @@ const ConcentricRotatingWatchface = () => {
 	const getColor = (type: string, index: number, value: number) => {
 		const hideThreshold = 2
 		let isVisible = index % 5 == 0 && Math.abs(index - value) > hideThreshold
-		if (!isVisible) {
+		if (isVisible) {
 			isVisible = (value + hideThreshold) >= 60
 		}
 		if (index == value) {
