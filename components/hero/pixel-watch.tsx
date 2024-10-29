@@ -11,13 +11,13 @@ const ConcentricRotatingWatchface = () => {
 
 	useEffect(() => {
 		const timer = setInterval(() => {
-			time.setSeconds(time.getSeconds() + animatedTick * 10)
-			time.setMinutes(time.getSeconds() + animatedTick * 10)
+			time.setSeconds(time.getSeconds() + animatedTick)
+			time.setMinutes(time.getSeconds() + animatedTick)
 			if (animatedTick % 2 == 0) {
-				time.setHours(time.getSeconds() + animatedTick / 2)
+				time.setHours(time.getSeconds() + (animatedTick / 2))
 			}
 
-			if (animatedTick >= 6) {
+			if (animatedTick >= 60) {
 				clearInterval(timer)
 				setShouldStartClock(true)
 				setTime(new Date())
