@@ -84,7 +84,7 @@ const AppleWatchFace = () => {
 					const y = 100 + 100 * Math.sin(angle)
 					return <circle key={i} cx={x} cy={y} r='2' fill='#FFF' />
 				})}
-				<text
+				{/* <text
 					x='100'
 					y='75'
 					fontFamily='Lilita One'
@@ -94,7 +94,7 @@ const AppleWatchFace = () => {
 					dominantBaseline='middle'
 				>
 					{time.toLocaleTimeString()}
-				</text>
+				</text> */}
 			</svg>
 		</div>
 	)
