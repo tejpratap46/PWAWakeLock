@@ -69,7 +69,7 @@ const AppleWatchFace = () => {
 	}
 
 	return (
-		<div className='flex flex-row min-h-screen justify-center items-center w-full'>
+		<div className='flex flex-row h-screen justify-center items-center w-full'>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
 				viewBox='0 0 200 200'
