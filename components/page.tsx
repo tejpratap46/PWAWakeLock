@@ -42,7 +42,7 @@ const Page = ({ title, children }: Props) => {
 				}}
 			>
 				<div>{children}</div>
-				<BrowserTabSwitchWarning />
+				{/* <BrowserTabSwitchWarning /> */}
 			</main>
 
 			{/* <BottomNav /> */}
