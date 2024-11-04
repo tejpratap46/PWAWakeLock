@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import dayjs from 'dayjs'
 
 const AppleWatchFace = () => {
 	const [time, setTime] = useState(new Date(0))
@@ -51,6 +52,8 @@ const AppleWatchFace = () => {
 		const dashLength = (circumference * progress) / 100
 		const dashGap = circumference - dashLength
 
+		console.log(`createRing: progress: ${Math.floor(progress)}, color: ${color}`)
+
 		return (
 			<circle
 				cx='100'
@@ -84,14 +87,25 @@ const AppleWatchFace = () => {
 				})}*/}
 				<text
 					x='100'
-					y='100'
-					fontFamily='Righteous'
+					y='25'
+					fontFamily='Concert One'
 					fill='#FFF'
-					fontSize='10'
+					fontSize='16'
 					textAnchor='middle'
 					dominantBaseline='middle'
 				>
-					{time.toLocaleTimeString()}
+					{dayjs(time).format('hh_mm_A')}
+				</text>
+				<text
+					x='100'
+					y='100'
+					fontFamily='Concert One'
+					fill='#FFF'
+					fontSize='32'
+					textAnchor='middle'
+					dominantBaseline='middle'
+				>
+					{dayjs(time).format('ss')}
 				</text>
 			</svg>
 		</div>

@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import Appbar from '@/components/appbar'
-import BottomNav from '@/components/bottom-nav'
 import { useWakeLock } from 'react-screen-wake-lock'
-import BrowserTabSwitchWarning from './BrowserTabSwitchWarning'
+import React from 'react'
+import { useRouter } from 'next/router'
+import useKeyboardEvent from '@/components/utils/useKeyboardEvent'
 
 interface Props {
 	title?: string
@@ -16,9 +16,33 @@ const Page = ({ title, children }: Props) => {
 		// onRelease: () => alert('Screen Wake Lock: released!'),
 	})
 
+	const router = useRouter();
+
 	if (isSupported) {
-		request()
+		request().then(r => {})
 	}
+
+	const routeMap: Record<string,[string, string]> = {
+		'/' : ['/apple', '/vertical'],
+		'/vertical' : ['/', '/word'],
+		'/word' : ['/vertical', '/pw'],
+		'/pw' : ['/word', '/globe'],
+		'/globe' : ['/pw', '/analog'],
+		'/analog' : ['/globe', '/apple'],
+		'/apple' : ['/analog', '/']
+	}
+
+	useKeyboardEvent('ArrowLeft', () => {
+		const currentRoute = router.pathname
+		const nextRoute = routeMap[currentRoute]?.at(0) || ''
+		router.push(nextRoute).then(r => {})
+	});
+
+	useKeyboardEvent('ArrowRight', () => {
+		const currentRoute = router.pathname
+		const nextRoute = routeMap[currentRoute]?.at(1) || ''
+		router.push(nextRoute).then(r => {})
+	});
 
 	return (
 		<>
@@ -35,9 +59,9 @@ const Page = ({ title, children }: Props) => {
 			<main
 				onDoubleClick={() => {
 					if (document.fullscreenElement == null) {
-						document.body.requestFullscreen()
+						document.body.requestFullscreen().then(r => {})
 					} else {
-						document.exitFullscreen()
+						document.exitFullscreen().then(r => {})
 					}
 				}}
 			>
