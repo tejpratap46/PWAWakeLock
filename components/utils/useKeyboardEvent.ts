@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 
-type KeyHandler = (event: KeyboardEvent) => void;
+type KeyHandler = (event: KeyboardEvent, key: string) => void;
 
-function useKeyboardEvent(key: string, handler: KeyHandler): void {
+function useKeyboardEvent(keys: string[], handler: KeyHandler): void {
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.key === key) {
-				handler(event);
+			if (keys.indexOf(event.key)) {
+				handler(event, event.key);
 			}
 		};
 
@@ -17,7 +17,7 @@ function useKeyboardEvent(key: string, handler: KeyHandler): void {
 		return () => {
 			window.removeEventListener('keydown', handleKeyDown);
 		};
-	}, [key, handler]);
+	}, [keys, handler]);
 }
 
 export default useKeyboardEvent;

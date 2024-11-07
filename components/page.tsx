@@ -3,6 +3,7 @@ import { useWakeLock } from 'react-screen-wake-lock'
 import React from 'react'
 import { useRouter } from 'next/router'
 import useKeyboardEvent from '@/components/utils/useKeyboardEvent'
+import { useKBar } from 'kbar'
 
 interface Props {
 	title?: string
@@ -16,33 +17,77 @@ const Page = ({ title, children }: Props) => {
 		// onRelease: () => alert('Screen Wake Lock: released!'),
 	})
 
-	const router = useRouter();
+	const router = useRouter()
+	const { query } = useKBar()
 
 	if (isSupported) {
-		request().then(r => {})
+		request().then((r) => {})
 	}
 
-	const routeMap: Record<string,[string, string]> = {
-		'/' : ['/apple', '/vertical'],
-		'/vertical' : ['/', '/word'],
-		'/word' : ['/vertical', '/pw'],
-		'/pw' : ['/word', '/globe'],
-		'/globe' : ['/pw', '/analog'],
-		'/analog' : ['/globe', '/apple'],
-		'/apple' : ['/analog', '/']
+	const toggleFullScreen = () => {
+		if (document.fullscreenElement == null) {
+			document.body.requestFullscreen().then((r) => {})
+		} else {
+			document.exitFullscreen().then((r) => {})
+		}
 	}
 
-	useKeyboardEvent('ArrowLeft', () => {
-		const currentRoute = router.pathname
-		const nextRoute = routeMap[currentRoute]?.at(0) || ''
-		router.push(nextRoute).then(r => {})
-	});
+	const routeList: string[] = [
+		'/',
+		'/vertical',
+		'/word',
+		'/pw',
+		'/globe',
+		'/analog',
+		'/apple',
+	]
 
-	useKeyboardEvent('ArrowRight', () => {
-		const currentRoute = router.pathname
-		const nextRoute = routeMap[currentRoute]?.at(1) || ''
-		router.push(nextRoute).then(r => {})
-	});
+	useKeyboardEvent(['ArrowLeft', 'ArrowRight', 'F', 'f'], (event) => {
+		switch (event.key) {
+			case 'ArrowLeft': {
+				const currentRoute = router.pathname
+				// const nextRoute = routeMap[currentRoute]?.at(0) || ''
+				// router.push(nextRoute).then(r => {})
+				let nextRouteIndex =
+					routeList.findIndex((route) => {
+						return route == currentRoute
+					}) || 0
+
+				nextRouteIndex =
+					nextRouteIndex - 1 < 0 ? routeList.length - 1 : nextRouteIndex
+
+				window.location.href = routeList[nextRouteIndex - 1]
+				break
+			}
+			case 'ArrowRight': {
+				const currentRoute = router.pathname
+				// const nextRoute = routeMap[currentRoute]?.at(1) || ''
+				// router.push(nextRoute).then(r => {})
+				let nextRouteIndex =
+					routeList.findIndex((route) => {
+						return route == currentRoute
+					}) || 0
+
+				nextRouteIndex =
+					nextRouteIndex + 1 > routeList.length - 1 ? 0 : nextRouteIndex
+
+				window.location.href = routeList[nextRouteIndex + 1]
+				break
+			}
+			case 'F':
+			case 'f': {
+				toggleFullScreen()
+				break
+			}
+			case 'k':
+			case 'K': {
+				query.toggle()
+				break
+			}
+			default:
+				break
+		}
+	})
 
 	return (
 		<>
@@ -58,11 +103,7 @@ const Page = ({ title, children }: Props) => {
 
 			<main
 				onDoubleClick={() => {
-					if (document.fullscreenElement == null) {
-						document.body.requestFullscreen().then(r => {})
-					} else {
-						document.exitFullscreen().then(r => {})
-					}
+					toggleFullScreen()
 				}}
 			>
 				<div>{children}</div>
