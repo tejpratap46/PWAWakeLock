@@ -5,7 +5,7 @@ type KeyHandler = (event: KeyboardEvent, key: string) => void;
 function useKeyboardEvent(keys: string[], handler: KeyHandler): void {
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
-			if (keys.indexOf(event.key)) {
+			if (keys.indexOf(event.key) >=0 ) {
 				handler(event, event.key);
 			}
 		};

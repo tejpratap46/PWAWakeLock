@@ -40,6 +40,7 @@ const Page = ({ title, children }: Props) => {
 		'/globe',
 		'/analog',
 		'/apple',
+		'/shadow'
 	]
 
 	useKeyboardEvent(['ArrowLeft', 'ArrowRight', 'F', 'f'], (event) => {
@@ -54,7 +55,7 @@ const Page = ({ title, children }: Props) => {
 					}) || 0
 
 				nextRouteIndex =
-					nextRouteIndex - 1 < 0 ? routeList.length - 1 : nextRouteIndex
+					nextRouteIndex - 1 < 0 ? routeList.length : nextRouteIndex
 
 				window.location.href = routeList[nextRouteIndex - 1]
 				break
@@ -69,7 +70,7 @@ const Page = ({ title, children }: Props) => {
 					}) || 0
 
 				nextRouteIndex =
-					nextRouteIndex + 1 > routeList.length - 1 ? 0 : nextRouteIndex
+					nextRouteIndex + 1 > routeList.length - 1 ? -1 : nextRouteIndex
 
 				window.location.href = routeList[nextRouteIndex + 1]
 				break
@@ -85,6 +86,7 @@ const Page = ({ title, children }: Props) => {
 				break
 			}
 			default:
+				console.error("Key not handled", event.key)
 				break
 		}
 	})

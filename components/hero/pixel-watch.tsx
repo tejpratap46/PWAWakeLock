@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const ConcentricRotatingWatchface = () => {
 	const HOUR = 'hour'
@@ -10,9 +10,9 @@ const ConcentricRotatingWatchface = () => {
 	const [shouldStartClock, setShouldStartClock] = useState(false)
 
 	useEffect(() => {
-		time.setSeconds(0);
-		time.setMinutes(0);
-		time.setHours(0);
+		time.setSeconds(0)
+		time.setMinutes(0)
+		time.setHours(0)
 		const timer = setInterval(() => {
 			time.setSeconds(animatedTick)
 			time.setMinutes(animatedTick)
@@ -50,7 +50,7 @@ const ConcentricRotatingWatchface = () => {
 	const getColor = (type: string, index: number, value: number) => {
 		const hideThreshold = 2
 		let isVisible = index % 5 == 0 && Math.abs(index - value) > hideThreshold
-		if (isVisible && index == 0 && (value + hideThreshold) >= 60) {
+		if (isVisible && index == 0 && value + hideThreshold >= 60) {
 			isVisible = false
 		}
 		if (index == value) {
@@ -104,7 +104,7 @@ const ConcentricRotatingWatchface = () => {
 					fontFamily={getFontFamily(type)}
 					textAnchor='middle'
 					alignmentBaseline='central'
-					transform={`rotate(${(i * (360 / count) - 90)}, ${x}, ${y})`}
+					transform={`rotate(${i * (360 / count) - 90}, ${x}, ${y})`}
 				>
 					{getValue(type, i).toString().padStart(2, '0')}
 				</text>,
