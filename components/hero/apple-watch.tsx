@@ -76,9 +76,9 @@ const AppleWatchFace = () => {
 				viewBox='0 0 200 200'
 				className='w-full h-full'
 			>
-				{createRing(60, smoothProgress.hours, '#FF3B30')}
+				{createRing(30, smoothProgress.hours, '#FF3B30')}
 				{createRing(45, smoothProgress.minutes, '#4CD964')}
-				{createRing(30, smoothProgress.seconds, '#007AFF')}
+				{createRing(60, smoothProgress.seconds, '#007AFF')}
 				{/*{[...Array(12)].map((_, i) => {
 					const angle = ((i * 30 - 90) * Math.PI) / 180
 					const x = 100 + 100 * Math.cos(angle)
