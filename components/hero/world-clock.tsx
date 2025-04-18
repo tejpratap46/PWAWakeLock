@@ -10,7 +10,7 @@ export default function WorldClock() {
   const [timeOffset, setTimeOffset] = useState(0);
   const [timezones, setTimezones] = useState([
     { id: 1, name: 'New York', timezone: 'America/New_York', color: 'bg-blue-100' },
-    { id: 2, name: 'London', timezone: 'Europe/London', color: 'bg-green-100' },
+    { id: 2, name: 'Paris', timezone: 'Europe/Paris', color: 'bg-green-100' },
     { id: 3, name: 'Tokyo', timezone: 'Asia/Tokyo', color: 'bg-amber-100' }
   ]);
   const [newCity, setNewCity] = useState('');
@@ -33,7 +33,7 @@ export default function WorldClock() {
     }
   }, [isEditing, timeOffset]);
   
-  const formatTime = (date) => {
+  const formatTime = (date: Date) => {
     return new Intl.DateTimeFormat('en-US', {
       hour: '2-digit',
       minute: '2-digit',
@@ -42,7 +42,7 @@ export default function WorldClock() {
     }).format(date);
   };
   
-  const formatTimeForTimezone = (timezone) => {
+  const formatTimeForTimezone = (timezone: string) => {
     try {
       return new Intl.DateTimeFormat('en-US', {
         timeZone: timezone,
@@ -56,7 +56,7 @@ export default function WorldClock() {
     }
   };
   
-  const formatDateForTimezone = (timezone) => {
+  const formatDateForTimezone = (timezone: string) => {
     try {
       return new Intl.DateTimeFormat('en-US', {
         timeZone: timezone,
@@ -114,7 +114,7 @@ export default function WorldClock() {
     }
   };
   
-  const removeTimezone = (id) => {
+  const removeTimezone = (id: number) => {
     setTimezones(timezones.filter(tz => tz.id !== id));
   };
 
