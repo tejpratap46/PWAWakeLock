@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"@heroicons/react": "^2.1.5",
+		"lucide-react": "^0.492.0",
 		"@number-flow/react": "^0.3.0",
 		"@react-three/drei": "^9.108.4",
 		"@react-three/fiber": "^8.16.8",
