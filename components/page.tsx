@@ -34,6 +34,7 @@ const Page = ({ title, children }: Props) => {
 
 	const routeList: string[] = [
 		'/',
+		'/world',
 		'/vertical',
 		'/word',
 		'/pw',
