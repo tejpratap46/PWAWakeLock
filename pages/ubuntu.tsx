@@ -1,10 +1,10 @@
 import Page from '@/components/page'
 
-import Windows10Update from '@/components/hero/windows-10-update';
+import UbuntuUpdate from '@/components/hero/ubuntu-update';
 
 const Index = () => {
 	return <Page>
-		<Windows10Update />
+		<UbuntuUpdate />
 	</Page>
 }
 
