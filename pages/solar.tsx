@@ -1,5 +1,5 @@
 import Page from '@/components/page'
-import SolarSystemOrbit from '@/components/hero/solar-system-orbit'
+import { SolarSystemOrbit } from '@/components/hero/solar-system-orbit'
 
 const Index = () => {
 	return (
