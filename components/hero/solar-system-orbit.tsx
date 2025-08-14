@@ -183,6 +183,44 @@ const SolarSystemOrbit: React.FC = () => {
       shootingStars = shootingStars.filter((star) => star.life < star.maxLife);
     };
 
+    const drawSun = (centerX: number, centerY: number) => {
+      const sunRadius = 20;
+      
+      // Create radial gradient for glow effect
+      const gradient = ctx.createRadialGradient(
+        centerX, centerY, 0,
+        centerX, centerY, sunRadius * 6
+      );
+      
+      // Multiple color stops for realistic sun glow
+      gradient.addColorStop(0, "rgba(255, 255, 100, 1)");      // Bright yellow center
+      gradient.addColorStop(0.2, "rgba(255, 220, 50, 0.9)");   // Golden yellow
+      gradient.addColorStop(0.4, "rgba(255, 180, 30, 0.6)");   // Orange
+      gradient.addColorStop(0.6, "rgba(255, 120, 20, 0.3)");   // Deep orange
+      gradient.addColorStop(0.8, "rgba(255, 80, 10, 0.1)");    // Red-orange
+      gradient.addColorStop(1, "rgba(255, 60, 0, 0)");         // Transparent red
+      
+      // Draw the outer glow
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, sunRadius * 6, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      
+      // Draw the sun itself with a brighter core
+      const coreGradient = ctx.createRadialGradient(
+        centerX, centerY, 0,
+        centerX, centerY, sunRadius
+      );
+      coreGradient.addColorStop(0, "rgba(255, 255, 150, 1)");   // Very bright center
+      coreGradient.addColorStop(0.7, "rgba(255, 200, 50, 1)");  // Golden edge
+      coreGradient.addColorStop(1, "rgba(255, 150, 0, 1)");     // Orange rim
+      
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, sunRadius, 0, Math.PI * 2);
+      ctx.fillStyle = coreGradient;
+      ctx.fill();
+    };
+
     const draw = () => {
       drawBackground();
 
@@ -190,10 +228,7 @@ const SolarSystemOrbit: React.FC = () => {
       const centerY = canvas.height / 2;
 
       // sun
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, 20, 0, Math.PI * 2);
-      ctx.fillStyle = "yellow";
-      ctx.fill();
+      drawSun(centerX, centerY)
 
       // planets
       planets.forEach((planet) => {
