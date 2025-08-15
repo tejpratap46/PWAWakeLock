@@ -1,11 +1,12 @@
 import Page from '@/components/page'
-
-import DigitalClock from '@/components/hero/digital-clock';
+import DirectoryPage from '@/components/hero'
 
 const Index = () => {
-	return <Page>
-		<DigitalClock />
-	</Page>
+	return (
+		<Page>
+			<DirectoryPage />
+		</Page>
+	)
 }
 
 export default Index

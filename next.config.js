@@ -7,5 +7,8 @@ const withPWA = require('next-pwa')({
 })
 
 module.exports = withPWA({
+	images: {
+		remotePatterns: [new URL('https://openweathermap.org/**')],
+	},
 	reactStrictMode: true,
 })

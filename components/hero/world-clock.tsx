@@ -1,282 +1,230 @@
-import { useState, useEffect } from 'react';
-import { Clock, Edit2, Check, X, Trash2, PlusCircle, Moon, Sun } from 'lucide-react';
-import TimePicker from '@/components/utils/TimePicker'
-import { useTheme } from 'next-themes';
+import React, { useEffect, useMemo, useState } from 'react'
+import {
+	ComposableMap,
+	Geographies,
+	Geography,
+	Marker,
+	ZoomableGroup,
+} from 'react-simple-maps'
+import { motion } from 'framer-motion'
 
-export default function WorldClock() {
-  const { theme, setTheme } = useTheme();
-  const mounted = useIsMounted();
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [editableTime, setEditableTime] = useState(new Date());
-  const [isEditing, setIsEditing] = useState(false);
-  const [timeOffset, setTimeOffset] = useState(0);
-  const [timezones, setTimezones] = useState([
-    { id: 1, name: 'New York', timezone: 'America/New_York', color: 'bg-blue-100 dark:bg-blue-800' },
-    { id: 2, name: 'Paris', timezone: 'Europe/Paris', color: 'bg-green-100 dark:bg-green-800' },
-    { id: 3, name: 'Tokyo', timezone: 'Asia/Tokyo', color: 'bg-amber-100 dark:bg-amber-800' }
-  ]);
-  const [newCity, setNewCity] = useState('');
-  const [newTimezone, setNewTimezone] = useState('');
-  const [showAddForm, setShowAddForm] = useState(false);
+const geoUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
 
-  const colors = [
-    'bg-blue-100 dark:bg-blue-800',
-    'bg-green-100 dark:bg-green-800',
-    'bg-amber-100 dark:bg-amber-800',
-    'bg-red-100 dark:bg-red-800',
-    'bg-purple-100 dark:bg-purple-800',
-    'bg-teal-100 dark:bg-teal-800',
-    'bg-pink-100 dark:bg-pink-800',
-    'bg-cyan-100 dark:bg-cyan-800'
-  ];
+const CITIES = [
+	{
+		id: 'del',
+		name: 'Delhi',
+		country: 'India',
+		tz: 'Asia/Kolkata',
+		coordinates: [77.209, 28.6139],
+	},
+	{
+		id: 'per',
+		name: 'Paris',
+		country: 'France',
+		tz: 'Europe/Paris',
+		coordinates: [2.3514, 48.8575],
+	},
+	{
+		id: 'nyc',
+		name: 'New York',
+		country: 'USA',
+		tz: 'America/New_York',
+		coordinates: [-74.006, 40.7128],
+	},
+	{
+		id: 'seo',
+		name: 'Seoul',
+		country: 'South Korea',
+		tz: 'Asia/Seoul',
+		coordinates: [126.9784, 37.5665],
+	},
+	{
+		id: 'syd',
+		name: 'Sydney',
+		country: 'Australia',
+		tz: 'Australia/Sydney',
+		coordinates: [151.2093, -33.8688],
+	},
+] as const
 
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
-
-  useEffect(() => {
-    // Only run the timer when not editing
-    if (!isEditing) {
-      const timer = setInterval(() => {
-        setCurrentTime(new Date(Date.now() + timeOffset));
-      }, 1000);
-
-      return () => clearInterval(timer);
-    }
-  }, [isEditing, timeOffset]);
-
-  const formatTime = (date: Date) => {
-    return new Intl.DateTimeFormat('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true
-    }).format(date);
-  };
-
-  const formatTimeForTimezone = (timezone: string) => {
-    try {
-      return new Intl.DateTimeFormat('en-US', {
-        timeZone: timezone,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      }).format(currentTime);
-    } catch (error) {
-      return 'Invalid timezone';
-    }
-  };
-
-  const formatDateForTimezone = (timezone: string) => {
-    try {
-      return new Intl.DateTimeFormat('en-US', {
-        timeZone: timezone,
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric'
-      }).format(currentTime);
-    } catch (error) {
-      return '';
-    }
-  };
-
-  const startEditing = () => {
-    setIsEditing(true);
-  };
-
-  const saveTimeEdit = () => {
-    // Create a new date with the edited time
-
-    // Calculate the offset from current time
-    const newOffset = editableTime.getTime() - new Date().getTime();
-    setTimeOffset(newOffset);
-
-    // Update current time
-    setCurrentTime(editableTime);
-    setIsEditing(false);
-  };
-
-  const cancelEdit = () => {
-    setIsEditing(false);
-  };
-
-  const addTimezone = () => {
-    if (newCity && newTimezone) {
-      const randomColor = colors[Math.floor(Math.random() * colors.length)];
-      setTimezones([
-        ...timezones,
-        {
-          id: timezones.length + 1,
-          name: newCity,
-          timezone: newTimezone,
-          color: randomColor
-        }
-      ]);
-      setNewCity('');
-      setNewTimezone('');
-      setShowAddForm(false);
-    }
-  };
-
-  const removeTimezone = (id: number) => {
-    setTimezones(timezones.filter(tz => tz.id !== id));
-  };
-
-  return (
-    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen p-6 transition-colors duration-200">
-      <div className="max-w-5xl mx-auto">
-        <header className="text-center mb-12 relative">
-          {mounted && (
-            <button
-              onClick={toggleTheme}
-              className="absolute right-0 top-0 p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-              aria-label="Toggle dark mode"
-            >
-              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-          )}
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-2">World Clock</h1>
-          <p className="text-gray-600 dark:text-gray-400">Track time zones around the world</p>
-        </header>
-
-        {/* Main Clock */}
-        <div className="relative mb-16">
-          <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 text-center transition-colors duration-200">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Your Current Time</h2>
-
-            {isEditing ? (
-              <div className="flex flex-col items-center">
-                <div className="flex items-center justify-center space-x-2 mb-6">
-                  <TimePicker
-                    value={editableTime}
-                    onChange={(e) => setEditableTime(e)}
-                  />
-                </div>
-                <div className="flex space-x-4">
-                  <button
-                    className="flex items-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
-                    onClick={saveTimeEdit}
-                  >
-                    <Check className="w-4 h-4 mr-2" />
-                    Save
-                  </button>
-                  <button
-                    className="flex items-center bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors"
-                    onClick={cancelEdit}
-                  >
-                    <X className="w-4 h-4 mr-2" />
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="relative">
-                <div className="mb-2 text-gray-600 dark:text-gray-400">
-                  {new Intl.DateTimeFormat('en-US', {
-                    weekday: 'long',
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric'
-                  }).format(currentTime)}
-                </div>
-                <div className="text-5xl font-bold text-gray-800 dark:text-gray-100 mb-6">
-                  {formatTime(currentTime)}
-                </div>
-                <button
-                  onClick={startEditing}
-                  className="flex items-center justify-center mx-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  <Edit2 className="w-4 h-4 mr-2" />
-                  Edit Time
-                </button>
-                {timeOffset !== 0 && (
-                  <div className="mt-4 text-sm text-amber-600 dark:text-amber-400">
-                    <em>Note: Time has been adjusted {timeOffset > 0 ? 'forward' : 'backward'}</em>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* World Clocks */}
-        <div className="mb-8">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">World Time Zones</h2>
-            <button
-              className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-              onClick={() => setShowAddForm(!showAddForm)}
-            >
-              <PlusCircle className="w-4 h-4 mr-2" />
-              Add Location
-            </button>
-          </div>
-
-          {showAddForm && (
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6 transition-colors duration-200">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="text"
-                  placeholder="City Name"
-                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-                  value={newCity}
-                  onChange={(e) => setNewCity(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="Timezone (e.g., America/Chicago)"
-                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-                  value={newTimezone}
-                  onChange={(e) => setNewTimezone(e.target.value)}
-                />
-                <button
-                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                  onClick={addTimezone}
-                >
-                  Add
-                </button>
-              </div>
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {timezones.map(tz => (
-              <div key={tz.id} className={`${tz.color} rounded-lg shadow-md overflow-hidden transition-colors duration-200`}>
-                <div className="p-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">{tz.name}</h3>
-                    <button
-                      onClick={() => removeTimezone(tz.id)}
-                      className="text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <div className="text-gray-600 dark:text-gray-400 text-sm mb-1">{tz.timezone}</div>
-                  <div className="text-gray-600 dark:text-gray-400 text-sm">{formatDateForTimezone(tz.timezone)}</div>
-                </div>
-                <div className="bg-white dark:bg-gray-800 p-4 flex justify-center items-center transition-colors duration-200">
-                  <div className="text-3xl font-bold font-mono text-gray-800 dark:text-gray-100">
-                    {formatTimeForTimezone(tz.timezone)}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+function formatTime(date: Date, timeZone: string) {
+	return new Intl.DateTimeFormat(undefined, {
+		timeZone,
+		hour: '2-digit',
+		minute: '2-digit',
+		second: '2-digit',
+		hour12: false,
+	}).format(date)
 }
 
-// Add mounted state to prevent hydration mismatch with theme
-export function useIsMounted() {
-  const [mounted, setMounted] = useState(false);
+function formatDate(date: Date, timeZone: string) {
+	return new Intl.DateTimeFormat(undefined, {
+		timeZone,
+		weekday: 'short',
+		year: 'numeric',
+		month: 'short',
+		day: '2-digit',
+	}).format(date)
+}
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+function useTicker(intervalMs = 1000) {
+	const [now, setNow] = useState<Date>(new Date())
+	useEffect(() => {
+		const id = setInterval(() => setNow(new Date()), intervalMs)
+		return () => clearInterval(id)
+	}, [intervalMs])
+	return now
+}
 
-  return mounted;
+export default function WorldClockMap() {
+	const now = useTicker(1000)
+	const [activeId, setActiveId] = useState<
+		(typeof CITIES)[number]['id'] | null
+	>('del')
+
+	const activeCity = useMemo(
+		() => CITIES.find((c) => c.id === activeId) ?? CITIES[0],
+		[activeId],
+	)
+
+	const progress = useMemo(() => {
+		const secondsSinceMidnight =
+			now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()
+		return (secondsSinceMidnight / 86400) * 100
+	}, [now])
+
+	return (
+		<div className='min-h-screen w-full bg-slate-950 text-slate-100 flex flex-col'>
+			<div className='h-2 w-full bg-slate-800'>
+				<div
+					className='h-2 bg-cyan-400 transition-all duration-500'
+					style={{ width: `${progress}%` }}
+				></div>
+			</div>
+
+			<main className='grid grid-cols-1 lg:grid-cols-3 gap-6 p-4 lg:p-6 flex-1'>
+				<section className='col-span-2 bg-slate-900/50 rounded-2xl shadow-inner p-2 md:p-4'>
+					<div className='relative aspect-[16/9] w-full overflow-hidden rounded-xl'>
+						<ComposableMap
+							projectionConfig={{ scale: 165 }}
+							className='w-full h-full'
+						>
+							<ZoomableGroup
+								center={
+									activeCity
+										? ([...activeCity.coordinates] as [number, number])
+										: [0, 0]
+								}
+								zoom={1.2}
+							>
+								<Geographies geography={geoUrl}>
+									{({ geographies }) =>
+										geographies.map((geo) => (
+											<Geography
+												key={geo.rsmKey}
+												geography={geo}
+												style={{
+													default: {
+														fill: '#0f172a',
+														stroke: '#1f2937',
+														strokeWidth: 0.5,
+													},
+													hover: { fill: '#111827' },
+													pressed: { fill: '#0f172a' },
+												}}
+											/>
+										))
+									}
+								</Geographies>
+
+								{CITIES.map((c) => (
+									<Marker
+										key={c.id}
+										coordinates={c.coordinates as [number, number]}
+									>
+										<motion.g
+											initial={{ y: -4, opacity: 0 }}
+											animate={{ y: 0, opacity: 1 }}
+											transition={{
+												type: 'spring',
+												stiffness: 200,
+												damping: 20,
+											}}
+											onClick={() => setActiveId(c.id)}
+											style={{ cursor: 'pointer' }}
+										>
+											<circle
+												r={6}
+												className={
+													c.id === activeId
+														? 'fill-cyan-400 stroke-white/80'
+														: 'fill-emerald-400/90 stroke-white/60'
+												}
+												strokeWidth={1}
+											/>
+											<text
+												textAnchor='start'
+												x={10}
+												y={-4}
+												className='fill-white text-[14px] font-medium'
+											>
+												{c.name}
+											</text>
+											<text
+												textAnchor='start'
+												x={10}
+												y={8}
+												className='fill-cyan-300 text-[10px] font-mono'
+											>
+												{formatTime(now, c.tz)}
+											</text>
+										</motion.g>
+									</Marker>
+								))}
+							</ZoomableGroup>
+						</ComposableMap>
+					</div>
+				</section>
+
+				<section className='space-y-3'>
+					<div className='bg-slate-900/50 rounded-2xl p-4'>
+						<h2 className='text-lg font-semibold mb-3 text-center'>Cities</h2>
+						<ul className='space-y-3'>
+							{CITIES.map((c) => {
+								const isActive = c.id === activeId
+								return (
+									<li key={c.id}>
+										<button
+											onClick={() => setActiveId(c.id)}
+											className={
+												'w-full flex items-center justify-between gap-3 rounded-xl p-3 transition ' +
+												(isActive
+													? 'bg-cyan-500/10 ring-1 ring-cyan-400/40'
+													: 'hover:bg-slate-800/60')
+											}
+											aria-pressed={isActive}
+										>
+											<div className='text-left'>
+												<div className='text-base font-medium'>
+													{c.name}{' '}
+													<span className='opacity-60'>• {c.country}</span>
+												</div>
+												<div className='text-xs opacity-70'>
+													{formatDate(now, c.tz)}
+												</div>
+											</div>
+											<div className='font-mono text-xl tabular-nums'>
+												{formatTime(now, c.tz)}
+											</div>
+										</button>
+									</li>
+								)
+							})}
+						</ul>
+					</div>
+				</section>
+			</main>
+		</div>
+	)
 }

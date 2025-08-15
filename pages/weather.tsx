@@ -1,18 +1,23 @@
-import { GetServerSideProps } from 'next'
-
 import Page from '@/components/page'
+import WeatherCard from '@/components/hero/weather-card'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { useSearchParams } from 'next/navigation'
 
-import Globe from '@/components/hero/globe'
+const Weather = ({
+	data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+	const searchParams = useSearchParams()
 
-const Index = (data: Data) => {
+	const city = searchParams.get('city')
+
 	return (
 		<Page>
-			<Globe lat={data.latitude} long={data.longitude} />
+			<WeatherCard city={city || data.city} />
 		</Page>
 	)
 }
 
-export default Index
+export default Weather
 
 type Data = {
 	latitude: number
