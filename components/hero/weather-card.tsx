@@ -20,7 +20,7 @@ export default function WeatherCard({ city }: WeatherCardProps): JSX.Element {
 	const [loading, setLoading] = useState(false)
 	const [currentTime, setCurrentTime] = useState<Date>(new Date())
 
-	const apiKey: String = process.env.OPENWEATHER_API_KEY || ""
+	const apiKey: String = process.env.OPENWEATHER_API_KEY || "13d0ac483bb197109f360c3e395fafa4"
 	if (!apiKey) {
 		throw new Error('OPENWEATHER_API_KEY is not set in environment variables')
 	}
