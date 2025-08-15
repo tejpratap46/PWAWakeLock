@@ -16,6 +16,15 @@ type Category = {
 
 const categories: Category[] = [
 	{
+		title: "Awesome",
+		pages: [
+			{ name: "Solar", url: "/solar", icon: <FileText size={18} />, description: "Solar System" },
+			{ name: "Matrix", url: "/matrix", icon: <Code2 size={18} />, description: "Matrix Rain" },
+			{ name: "Globe", url: "/globe", icon: <Code2 size={18} />, description: "Rotating Globe with grab" },
+			{ name: "Emoji", url: "/emoji", icon: <Code2 size={18} />, description: "Emoji Rain" },
+		],
+	},
+	{
 		title: "Clocks",
 		pages: [
 			{ name: "Digital", url: "/digital", icon: <Book size={18} />, description: "Digital clock with animation" },
@@ -23,14 +32,17 @@ const categories: Category[] = [
 			{ name: "Apple Watch", url: "/apple", icon: <PlayCircle size={18} />, description: "Apple Rings Clock" },
 			{ name: "Pixel Watch", url: "/pw", icon: <PlayCircle size={18} />, description: "Pixel Watch Inspired Clock" },
 			{ name: "Shadow Clock", url: "/shadow", icon: <PlayCircle size={18} />, description: "A Shadow/Dark clock, which can only be read in night" },
-			{ name: "Timezone", url: "/timezone", icon: <PlayCircle size={18} />, description: "Timezone" },
+			{ name: "Timezone", url: "/timezone", icon: <PlayCircle size={18} />, description: "2 Timezones running together" },
+			{ name: "Word", url: "/word", icon: <PlayCircle size={18} />, description: "Word clock" },
+			{ name: "World", url: "/world", icon: <PlayCircle size={18} />, description: "World clock" },
 		],
 	},
 	{
-		title: "Guides",
+		title: "Fake Update",
 		pages: [
-			{ name: "Routing", url: "/docs/routing", icon: <FileText size={18} />, description: "Setup app navigation" },
-			{ name: "State Management", url: "/docs/state", icon: <Code2 size={18} />, description: "Manage app state" },
+			{ name: "Win11", url: "/win11", icon: <FileText size={18} />, description: "Windows 11 update screen" },
+			{ name: "Win10", url: "/win10", icon: <Code2 size={18} />, description: "Windows 10 update screen" },
+			{ name: "Ubuntu", url: "/ubuntu", icon: <Code2 size={18} />, description: "Ubuntu update screen" },
 		],
 	},
 ];
