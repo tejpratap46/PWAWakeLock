@@ -19,6 +19,7 @@ const categories: Category[] = [
 		title: "Awesome",
 		pages: [
 			{ name: "Solar", url: "/solar", icon: <FileText size={18} />, description: "Solar System" },
+			{ name: "Weather", url: "/weather", icon: <Code2 size={18} />, description: "Weather in your city" },
 			{ name: "Matrix", url: "/matrix", icon: <Code2 size={18} />, description: "Matrix Rain" },
 			{ name: "Globe", url: "/globe", icon: <Code2 size={18} />, description: "Rotating Globe with grab" },
 			{ name: "Emoji", url: "/emoji", icon: <Code2 size={18} />, description: "Emoji Rain" },
