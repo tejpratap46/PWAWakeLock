@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import { useWakeLock } from 'react-screen-wake-lock'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import useKeyboardEvent from '@/components/utils/useKeyboardEvent'
 import { useKBar } from 'kbar'
+import { tinykeys } from "tinykeys"
 
 interface Props {
 	title?: string
@@ -49,51 +50,39 @@ const Page = ({ title, children }: Props) => {
 		'/shadow'
 	]
 
-	useKeyboardEvent(['ArrowLeft', 'ArrowRight', 'F', 'f'], (event) => {
-		switch (event.key) {
-			case 'ArrowLeft': {
-				const currentRoute = router.pathname
-				// const nextRoute = routeMap[currentRoute]?.at(0) || ''
-				// router.push(nextRoute).then(r => {})
+	useEffect(() => {
+		let unsubscribe = tinykeys(window, {
+			'ctrl+k': () => {
+				query.toggle()
+			},
+			'f': () => {
+				toggleFullScreen()
+			},
+			'arrowleft': () => {
 				let nextRouteIndex =
 					routeList.findIndex((route) => {
-						return route == currentRoute
+						return route == router.pathname
 					}) || 0
 
 				nextRouteIndex =
 					nextRouteIndex - 1 < 0 ? routeList.length : nextRouteIndex
 
 				window.location.href = routeList[nextRouteIndex - 1]
-				break
-			}
-			case 'ArrowRight': {
-				const currentRoute = router.pathname
-				// const nextRoute = routeMap[currentRoute]?.at(1) || ''
-				// router.push(nextRoute).then(r => {})
+			},
+			'arrowright': () => {
 				let nextRouteIndex =
 					routeList.findIndex((route) => {
-						return route == currentRoute
+						return route == router.pathname
 					}) || 0
 
 				nextRouteIndex =
 					nextRouteIndex + 1 > routeList.length - 1 ? -1 : nextRouteIndex
 
 				window.location.href = routeList[nextRouteIndex + 1]
-				break
-			}
-			case 'F':
-			case 'f': {
-				toggleFullScreen()
-				break
-			}
-			case 'k':
-			case 'K': {
-				query.toggle()
-				break
-			}
-			default:
-				console.error("Key not handled", event.key)
-				break
+			},
+		})
+		return () => {
+			unsubscribe()
 		}
 	})
 

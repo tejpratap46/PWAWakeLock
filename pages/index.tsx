@@ -1,5 +1,5 @@
 import Page from '@/components/page'
-import DirectoryPage from '@/components/hero'
+import DirectoryPage from '@/components/home'
 
 const Index = () => {
 	return (

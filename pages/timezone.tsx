@@ -5,7 +5,7 @@ import TimezoneComparison from '@/components/hero/dual-timezone'
 const Index = () => {
 	return (
 		<Page>
-			<TimezoneComparison tz1='Asia/Kolkata' tz2='America/New_York' />
+			<TimezoneComparison tz1='Asia/Kolkata' tz2='Europe/Paris' />
 		</Page>
 	)
 }

@@ -27,6 +27,7 @@
 		"react-simple-maps": "^3.0.0",
 		"react-spring": "^9.7.3",
 		"three": "^0.166.1",
+		"tinykeys": "^3.0.0",
 		"to-words": "^3.3.1"
 	},
 	"devDependencies": {

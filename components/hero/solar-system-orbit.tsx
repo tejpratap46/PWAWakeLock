@@ -83,25 +83,25 @@ export const SolarSystemOrbit: React.FC = () => {
         ]
       },
       {
-        name: "Jupiter", radius: 12, distance: 230, speed: 0.015, angle: 0, color: "#c9a26b",
+        name: "Jupiter", radius: 24, distance: 250, speed: 0.015, angle: 0, color: "#c9a26b",
         moons: [
-          { name: "Io", radius: 2.5, distance: 16, speed: 0.06, angle: 0, color: "gold" },
-          { name: "Europa", radius: 2, distance: 22, speed: 0.05, angle: 0, color: "#dcdcdc" },
-          { name: "Ganymede", radius: 3, distance: 28, speed: 0.04, angle: 0, color: "#b0a17b" },
-          { name: "Callisto", radius: 2.8, distance: 35, speed: 0.035, angle: 0, color: "#a3a3a3" }
+          { name: "Io", radius: 2.5, distance: 26, speed: 0.06, angle: 0, color: "gold" },
+          { name: "Europa", radius: 2, distance: 32, speed: 0.05, angle: 0, color: "#dcdcdc" },
+          { name: "Ganymede", radius: 3, distance: 38, speed: 0.04, angle: 0, color: "#b0a17b" },
+          { name: "Callisto", radius: 2.8, distance: 45, speed: 0.035, angle: 0, color: "#a3a3a3" }
         ]
       },
       {
-        name: "Saturn", radius: 10, distance: 300, speed: 0.012, angle: 0, color: "#d1c089", hasRings: true,
+        name: "Saturn", radius: 10, distance: 320, speed: 0.012, angle: 0, color: "#d1c089", hasRings: true,
         moons: [
           { name: "Titan", radius: 3, distance: 20, speed: 0.05, angle: 0, color: "orange" }
         ]
       },
       {
-        name: "Uranus", radius: 8, distance: 360, speed: 0.009, angle: 0, color: "#7fffd4", hasRings: true
+        name: "Uranus", radius: 8, distance: 380, speed: 0.009, angle: 0, color: "#7fffd4", hasRings: true
       },
       {
-        name: "Neptune", radius: 8, distance: 420, speed: 0.007, angle: 0, color: "#4b6aff",
+        name: "Neptune", radius: 8, distance: 440, speed: 0.007, angle: 0, color: "#4b6aff",
         moons: [{ name: "Triton", radius: 2, distance: 14, speed: 0.06, angle: 0, color: "#b0c4de" }]
       }
     ];
