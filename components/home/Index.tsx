@@ -1,7 +1,7 @@
-import { redirect } from 'next/navigation'
 import React from 'react'
 import { Book, Code2, FileText, PlayCircle } from 'lucide-react'
 import Link from 'next/link'
+import KeyboardShortcuts from '@/components/home/KeyboardShortcuts'
 
 type PageLink = {
 	name: string
@@ -131,16 +131,59 @@ export const categories: Category[] = [
 
 const DirectoryPage: React.FC = () => {
 	return (
-		<div className='min-h-screen bg-gray-50 dark:bg-black py-12 px-6 transition-colors duration-300'>
+		<div className='min-h-screen bg-zinc-50 dark:bg-black py-12 px-6 transition-colors duration-300' style={{
+			cursor: "default"
+		}}>
 			<div className='max-w-4xl mx-auto'>
-				<h1 className='text-4xl font-bold text-gray-800 dark:text-white mb-8'>
+				<h1
+					className='text-4xl font-bold text-zinc-800 dark:text-white mb-4'
+					style={{
+						fontFamily: 'Kode Mono',
+					}}
+				>
+					Wake Lock
+				</h1>
+				<p
+					className='text-zinc-500 dark:text-zinc-400 mb-8'
+					style={{
+						fontFamily: 'Kode Mono',
+					}}
+				>
+					Keep your device awake while using these pages. This prevents the
+					screen from dimming or locking automatically, allowing you keep your
+					screen and CPU active while some important task is ongoing in
+					background.
+				</p>
+
+				<p
+					className='text-zinc-500 dark:text-zinc-400 mb-8'
+					style={{
+						fontFamily: 'Kode Mono',
+					}}
+				>
+					Here are some keyboard shortcuts to navigate through the pages
+				</p>
+
+				<KeyboardShortcuts />
+
+				<h1
+					className='text-4xl font-bold text-zinc-800 dark:text-white mb-8 mt-8'
+					style={{
+						fontFamily: 'Kode Mono',
+					}}
+				>
 					Directory
 				</h1>
 
 				<div className='space-y-10'>
 					{categories.map((category) => (
 						<div key={category.title}>
-							<h2 className='text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-4'>
+							<h2
+								className='text-2xl font-semibold text-zinc-700 dark:text-zinc-300 mb-4'
+								style={{
+									fontFamily: 'Kode Mono',
+								}}
+							>
 								{category.title}
 							</h2>
 
@@ -152,17 +195,17 @@ const DirectoryPage: React.FC = () => {
 										className='flex items-start gap-3 p-4 rounded-lg
                                bg-white dark:bg-neutral-900
                                shadow hover:shadow-md
-                               transition-shadow border border-gray-200 dark:border-neutral-800'
+                               transition-shadow border border-zinc-200 dark:border-neutral-800'
 									>
 										<div className='text-blue-600 dark:text-blue-400 mt-1'>
 											{page.icon}
 										</div>
 										<div>
-											<h3 className='text-lg font-medium text-gray-800 dark:text-white'>
+											<h3 className='text-lg font-medium text-zinc-800 dark:text-white'>
 												{page.name}
 											</h3>
 											{page.description && (
-												<p className='text-sm text-gray-500 dark:text-gray-400 mt-1'>
+												<p className='text-sm text-zinc-500 dark:text-zinc-400 mt-1'>
 													{page.description}
 												</p>
 											)}

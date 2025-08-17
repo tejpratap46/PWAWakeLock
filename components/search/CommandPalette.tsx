@@ -24,13 +24,30 @@ export default function CommandPalette() {
 						placeholder='Type a command...'
 					/>
 					<KBarResults
-						onRender={({ item, active }) => (
-							<div
-								className={`p-2 cursor-pointer rounded-lg shadow-lg ${active ? 'bg-zinc-200 dark:bg-zinc-700' : ''}`}
-							>
-								{typeof item === 'string' ? item : item.name}
-							</div>
-						)}
+						onRender={({ item, active }) => {
+							if (typeof item === "string") {
+								// Separator styling
+								return (
+									<div className="px-2 py-1 text-xs uppercase tracking-wide text-zinc-500 dark:text-zinc-400" style={{
+										fontFamily: "Kode Mono",
+										fontWeight: "bold",
+									}}>
+										{item}
+									</div>
+								)
+							}
+
+							// Normal item styling
+							return (
+								<div
+									className={`p-2 cursor-pointer rounded-lg ${
+										active ? "bg-zinc-200 dark:bg-zinc-700" : ""
+									}`}
+								>
+									{item.name}
+								</div>
+							)
+						}}
 						items={results}
 					/>
 				</KBarAnimator>
