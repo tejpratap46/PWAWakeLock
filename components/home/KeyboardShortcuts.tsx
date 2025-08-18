@@ -7,6 +7,10 @@ type Shortcut = {
 
 export const shortcuts: Shortcut[] = [
 	{
+		keys: ["h"],
+		description: "Goto Home Screen",
+	},
+	{
 		keys: ["f"],
 		description: "Toggle Full Screen",
 	},

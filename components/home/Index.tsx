@@ -141,7 +141,7 @@ const DirectoryPage: React.FC = () => {
 						fontFamily: 'Kode Mono',
 					}}
 				>
-					Wake Lock
+					🥱 Wake Lock
 				</h1>
 				<p
 					className='text-zinc-500 dark:text-zinc-400 mb-8'

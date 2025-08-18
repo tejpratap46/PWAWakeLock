@@ -2,9 +2,9 @@ import Head from 'next/head'
 import { useWakeLock } from 'react-screen-wake-lock'
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import useKeyboardEvent from '@/components/utils/useKeyboardEvent'
 import { useKBar } from 'kbar'
-import { tinykeys } from "tinykeys"
+import { tinykeys } from 'tinykeys'
+import { routeList } from '@/components/search/Actions'
 
 interface Props {
 	title?: string
@@ -33,32 +33,18 @@ const Page = ({ title, children }: Props) => {
 		}
 	}
 
-	const routeList: string[] = [
-		'/',
-		'/win10',
-		'/win11',
-		'/ubuntu',
-		'/matrix',
-		'/emoji',
-		'/solar',
-		'/vertical',
-		'/word',
-		'/pw',
-		'/globe',
-		'/analog',
-		'/apple',
-		'/shadow'
-	]
-
 	useEffect(() => {
 		let unsubscribe = tinykeys(window, {
 			'ctrl+k': () => {
 				query.toggle()
 			},
-			'f': () => {
+			h: async () => {
+				await router.push('/')
+			},
+			f: () => {
 				toggleFullScreen()
 			},
-			'arrowleft': () => {
+			arrowleft: () => {
 				let nextRouteIndex =
 					routeList.findIndex((route) => {
 						return route == router.pathname
@@ -69,7 +55,7 @@ const Page = ({ title, children }: Props) => {
 
 				window.location.href = routeList[nextRouteIndex - 1]
 			},
-			'arrowright': () => {
+			arrowright: () => {
 				let nextRouteIndex =
 					routeList.findIndex((route) => {
 						return route == router.pathname
